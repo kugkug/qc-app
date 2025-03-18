@@ -1,0 +1,58 @@
+@font-face {
+    font-family: systemFont;
+    src: url(../fonts/Roboto/Roboto-Light.ttf);
+}
+
+html,
+body {
+    height: 100%;
+    font-family: systemFont !important;
+}
+
+.div-loader {
+    top: 0px;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999999;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+.image-upload,
+.image-uploaded {
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid #007bff;
+    }
+}
+
+.bg-primary-system {
+    background-color: #115272;
+}
+
+.bg-system-image {
+    background-image: url("../../assets/images/system/body_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.card-button:hover {
+    cursor: pointer;
+}

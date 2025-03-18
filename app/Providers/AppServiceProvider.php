@@ -19,6 +19,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $system_config = config('system');
+        
+        view()->composer('*', function($view) use ($system_config) {
+            $view->with([
+                'app_name' => $system_config['app_name'],
+                'app_title' => $system_config['app_title'],
+                'app_favicon' => $system_config['app_favicon'],
+            ]);
+        });
     }
 }
