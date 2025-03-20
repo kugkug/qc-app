@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
         Route::get("/sanitary_permit", [ApplicantModulesController::class, 'sanitary_permit'])->name('applicant_sanitary_permit');
         Route::get("/laboratory_follow_up", [ApplicantModulesController::class, 'laboratory_followup'])->name('applicant_laboratory_followup');
         Route::get("/analysis_follow_up", [ApplicantModulesController::class, 'water_analysis_followup'])->name('applicant_water_analysis_followup');
+
+
+        Route::group(['prefix' => 'processing'], function() {
+            Route::get("/application", [ApplicantModulesController::class, 'processing_application'])->name('applicant_processing_application');
+            Route::get("/upload-requirements", [ApplicantModulesController::class, 'processing_upload_requirements'])->name('applicant_processing_upload_requirements');
+        });
     });
     
 // });

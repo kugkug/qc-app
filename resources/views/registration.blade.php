@@ -78,9 +78,7 @@
 
                 <div class="form-group col-lg-3">
                     <label for="fname" class="">Barangay <i class="text-red">*</i></label>
-                    <select class="form-control rounded-0" style="" required="">
-                        <option value="" selected="selected">- Select Barangay -</option>
-                    </select>
+                    <x-dropdowns xtype='brgy' />
                 </div>
 
                 <div class="form-group col-lg-3">
@@ -174,11 +172,11 @@
                 <i>By clicking on the register button below, I hereby agree to both the Terms of Use and Data Privacy Policy.</i>
             </p>
 
-            <button type="button" class="btn btn-outline-success rounded-0" disabled="">
+            <button type="button" class="btn btn-outline-success btn-flat" disabled="">
                 <i class="fas fa-check"></i> REGISTER
             </button>
 
-            <a href="/" type="button" class="btn btn-outline-danger rounded-0">
+            <a href="/" type="button" class="btn btn-outline-danger btn-flat">
                 <i class="fas fa-times"></i> &nbsp; CANCEL</button>
             </a>
         </div>

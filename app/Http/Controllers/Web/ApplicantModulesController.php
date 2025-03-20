@@ -29,6 +29,7 @@ class ApplicantModulesController extends Controller
     public function health_certificate() {
         $this->data = [
             'page_name' => 'Health Certificate',
+            'dropdowns' => dropDownHelper()->getAllDropDowns(),
         ];
         return view("modules.applicant.health_certificate", $this->data);
     }
@@ -52,5 +53,21 @@ class ApplicantModulesController extends Controller
             'page_name' => 'Follow-up Analysis',
         ];
         return view("modules.applicant.water_analysis_followup", $this->data);
+    }
+
+    public function processing_application() {
+        $this->data = [
+            'page_name' => 'Application Form',
+            'module_title' => 'Individual Health Certificate Application',
+        ];
+        return view("modules.applicant.processing.application", $this->data);
+    }
+
+    public function processing_upload_requirements() {
+        $this->data = [
+            'page_name' => 'Upload Requirements',
+            'module_title' => 'Individual Health Certificate Application',
+        ];
+        return view("modules.applicant.processing.requirements", $this->data);
     }
 }

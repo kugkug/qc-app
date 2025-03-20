@@ -28,6 +28,7 @@
         </div>
 
         <div class="row">
+            <div class="col-md-3"></div>
             <div class="col-md-6 card-button" data-path='laboratory_follow_up'>
                 <div class="card rounded-0 shadow-lg">
                     <div class="card-body text-center rounded-0" style="height: 280px">
@@ -39,18 +40,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6 card-button" data-path='analysis_follow_up'>
-                <div class="card rounded-0 shadow-lg">
-                    <div class="card-body text-center" style="height: 280px">
-                        <img src="{{ asset('assets/images/system/analysis.png') }}" class="img-fluid" style="height: 100%">
-                    </div>
-                    <div class="card-footer bg-primary">
-                        <h4>Follow-up Water Analysis</h4>
-                        <p>Apply for the follow-up water analysis of your establishment</p>
-                    </div>
-                </div>
-            </div>
+            <div class="col-md-3"></div>
         </div>
 </div>
 @include('partials.applicant.footer')

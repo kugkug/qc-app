@@ -35,9 +35,9 @@
                             </p>
                         @enderror
                         {{-- <button type="submit" class="btn btn-outline-primary btn-block rounded-0">Sign In</button> --}}
-                        <a class="btn btn-outline-primary btn-block rounded-0" href="applicant/home">Sign In</a>
+                        <a class="btn btn-outline-primary btn-block btn-flat" href="applicant/home">Sign In</a>
                         <hr />
-                        <a class="btn btn-outline-info btn-block rounded-0" href="register">Register</a>
+                        <a class="btn btn-outline-info btn-block btn-flat" href="register">Register</a>
         
                     </form>
                 </div>

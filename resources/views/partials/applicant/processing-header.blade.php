@@ -34,7 +34,7 @@
 
         </div>
     </nav>
-    <div class="content-wrapper bg-system-image pb-4">
+    <div class="content-wrapper pb-4">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
