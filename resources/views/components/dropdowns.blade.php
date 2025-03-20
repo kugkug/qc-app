@@ -1,4 +1,4 @@
-@if($xtype == 'barangay')
+@if($xtype == 'barangays')
 
     <select class="form-control rounded-0" data-key="BaranggayId">
         <option value="" selected="selected">- Select Barangay -</option>
