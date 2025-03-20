@@ -97,7 +97,7 @@
 
                 <div class="form-group col-lg-3">
                     <label for="fname" class="">Barangay <i class="text-red">*</i></label>
-                    <x-dropdowns xtype='baranggays' />
+                    <x-dropdowns xtype='barangays' />
                 </div>
 
                 
