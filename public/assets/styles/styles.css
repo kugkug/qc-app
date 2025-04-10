@@ -42,10 +42,6 @@ textarea {
     }
 }
 
-.bg-primary-system {
-    background-color: #115272;
-}
-
 .bg-system-image {
     background-image: url("../../assets/images/system/body_bg.png");
     background-repeat: no-repeat;
@@ -75,9 +71,9 @@ textarea {
     background-color: #fff;
     border: 8px solid #a0a0a0;
     border-radius: 50%;
-    height: 32px;
+    height: 30px;
     margin: auto;
-    width: 32px;
+    width: 30px;
 }
 
 .crumb-label {
@@ -120,14 +116,14 @@ textarea {
 
 .completed-date,
 .crumb-status {
-    font-size: 12px;
+    font-size: 10px;
     white-space: nowrap;
 }
 
 .crumb-status {
     color: #fff;
     font-weight: 900;
-    padding: 3px 10px;
+    padding: 2px 8px;
     text-align: center;
 }
 
@@ -144,16 +140,16 @@ textarea {
 }
 
 .crumb-details {
-    font-size: 12px;
+    font-size: 10px;
     left: 50%;
     position: absolute;
     text-align: center;
-    top: 62px;
+    top: 55px;
     transform: translate(-50%, -50%);
 }
 
 .vertical-crumb-header {
-    padding: 24px;
+    padding: 18px;
 }
 
 .display-horizontal {
@@ -171,7 +167,7 @@ textarea {
     }
 }
 
-@media only screen and (max-width: 687px) {
+@media only screen and (max-width: 992px) {
     .crumb-label {
         font-size: 2vw;
         position: relative;
@@ -207,3 +203,11 @@ textarea {
         border-color: #c00;
     }
 }
+
+.bg-primary-system {
+    background-color: #004687 !important;
+}
+
+/* .bg-primary-system {
+    background-color: #115272;
+} */

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('business_line_look_ups', function (Blueprint $table) {
             $table->id();
             $table->string('business_line');
+            $table->bigInteger('sub_industry_id')->constrained('sub_industry_look_ups');
             $table->timestamps();
         });
     }

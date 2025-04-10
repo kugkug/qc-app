@@ -2,21 +2,20 @@
 
 <div class="container">
     
-    <x-timeline xtitle={{$module_title}}/>
+    <x-timeline xtitle={{$module_title}} xname="Upload Requirements" xpath='/business'/>
 
     <div class="card rounded-0">
-        <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="card-header border-0">
             <h3 class="card-title">
                 Application Details
             </h3>
-            <div class="card-tools ml-auto">
+            <div class="card-tools">
                 <button class="btn btn-outline-danger btn-flat">
                     Cancel Application
                 </button>
             </div>
         </div>
         <div class="card-body">
-            <x-details />
             <hr />
 
             <h3 class="lead font-weight-class mb-3">
@@ -97,7 +96,7 @@
 
                 <div class="form-group col-lg-3">
                     <label for="fname" class="">Barangay <i class="text-red">*</i></label>
-                    <x-dropdowns xtype='barangays' />
+                    <x-dropdowns xtype='brgy' />
                 </div>
 
                 
@@ -160,20 +159,14 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <a class="btn btn-outline-success btn-flat btn-block" href="/applicant/processing/upload-requirements">
+                    <button class="btn btn-outline-success btn-flat btn-block">
                         NEXT
-                    </a>
-                    {{-- <button class="btn btn-outline-success btn-flat btn-block">
-                        NEXT
-                    </button> --}}
+                    </button>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-outline-success btn-flat btn-block" href="/applicant/health_certificate">
+                    <button class="btn btn-outline-danger btn-flat btn-block">
                         CANCEL
-                    </a>
-                    {{-- <button class="btn btn-outline-danger btn-flat btn-block">
-                        CANCEL
-                    </button> --}}
+                    </button>
                 </div>
             </div>
         </div>

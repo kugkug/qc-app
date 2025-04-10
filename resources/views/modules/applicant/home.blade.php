@@ -9,7 +9,7 @@
                     </div>
                     <div class="card-footer bg-primary">
                         <h4>Health Certificate</h4>
-                        <p>Apply for Health certificate, online HIV seminar, get digital copy of your health card</p>
+                        <small>Apply for Health certificate, online HIV seminar, get digital copy of your health card</small>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-footer bg-primary">
                         <h4>Sanitary Permit</h4>
-                        <p>Apply for Sanitary Permit, upload requirements online, get digital copy of your Provisional SP (for new business)</p>
+                        <small>Apply for Sanitary Permit, upload requirements online, get digital copy of your Provisional SP (for new business)</small>
                     </div>
                 </div>
             </div>
@@ -32,11 +32,11 @@
             <div class="col-md-6 card-button" data-path='laboratory_follow_up'>
                 <div class="card rounded-0 shadow-lg">
                     <div class="card-body text-center rounded-0" style="height: 280px">
-                        <img src="{{ asset('assets/images/system/laboratory.png') }}" class="img-fluid" style="height: 100%">
+                        <img src="{{ asset('assets/images/system/complain_icon.png') }}" class="img-fluid" style="height: 100%">
                     </div>
                     <div class="card-footer bg-primary">
-                        <h4>Follow-up Laboratory</h4>
-                        <p>Apply for your follow-up laboratory</p>
+                        <h4>File a Complain</h4>
+                        <small>File a complain to make our services better</small>
                     </div>
                 </div>
             </div>
@@ -45,4 +45,5 @@
 </div>
 @include('partials.applicant.footer')
 
-<script src="{{ asset('assets/scripts/modules/applicant/home.js') }}"></script>
+<script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
+<script src="{{ asset('assets/scripts/modules/home.js') }}"></script>

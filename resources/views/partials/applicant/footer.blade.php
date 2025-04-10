@@ -1,6 +1,6 @@
 </div>
 </div>
-<footer class="bg-primary text-white">
+<footer class="bg-primary-system text-white">
     <!-- Grid container -->
     <div class="container p-4">
       <!--Grid row-->
@@ -27,9 +27,36 @@
     </div>
     
   </footer>
+  @include('partials.applicant.assets.fullscreenloader')
+
+
+{{-- <script src="{{ asset('assets/adminlte3.2/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/toastr/toastr.min.js') }}"></script> 
+<script src="{{ asset('assets/adminlte3.2/plugins/bootstrap/js/bootstrap.bundle.min.js') }}s"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/confirm/js/jquery-confirm.js') }}"></script> --}}
+{{-- 
+<script src="{{ asset('assets/adminlte3.2/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('scripts/modules/scripts.js') }}"></script> --}}
 
 <script src="{{ asset('assets/adminlte3.2/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/confirm/js/jquery-confirm.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/dist/js/adminlte.js') }}"></script>
 
 </body>

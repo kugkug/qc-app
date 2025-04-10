@@ -1,7 +1,7 @@
 @include('partials.applicant.header')
 
 <div class="container">
-
+    
     @include('components.applicant.details')
     <div class="row">
         <div class="col-md-6">
@@ -26,7 +26,7 @@
                 </div>
         
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table data-table">
                         <thead>
                             <tr>
                                 <th>Application ID</th>
@@ -35,28 +35,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#">123456</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/2025</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/Draft</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">123456</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/2025</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/Draft</a>
-                                </td>
-                            </tr>
+                            
+                            @foreach ($applications as $application)
+                                @if ($application['classification_id'] === config('system.classification')['individual'])
+                                    @php
+                                        if ($application['histories']) {
+                                            $last_timeline = $application['histories'][ sizeOf($application['histories']) ];
+                                        } else {
+                                            $last_timeline = [];
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <a href="/applicant/processing/application/{{ $application['application_ref_no']}}">
+                                                {{ $application['application_ref_no']}}
+                                            </a> 
+                                        </td>
+                                        <td>
+                                            <a href="/applicant/processing/application/{{ $application['application_ref_no']}}">
+                                                {{ date("m/d/Y", strtotime($application['created_at'])) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/applicant/processing/application/{{ $application['application_ref_no']}}">
+                                                {{ $application['application_status']}} 
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -74,7 +81,7 @@
                 </div>
         
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table data-table">
                         <thead>
                             <tr>
                                 <th>Application ID</th>
@@ -83,28 +90,53 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#">123456</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/2025</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/Draft</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">123456</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/2025</a>
-                                </td>
-                                <td>
-                                    <a href="#">3/9/Draft</a>
-                                </td>
-                            </tr>
+                                        
+                            @foreach ($applications as $application)
+                                @if ($application['classification_id'] === config('system.classification')['bulk'])
+                                    @php
+                                        if ($application['histories']) {
+                                             $last_timeline = $application['histories'][ sizeOf($application['histories']) ];
+                                        } else {
+                                            $last_timeline = [];
+                                        }
+
+                                        foreach ($global_timelines as $timeline) {
+
+                                            if ($last_timeline) {
+                                                $latest_timeline_id = $last_timeline['timeline_look_up_id'];
+                                                $next_timeline_id = $latest_timeline_id + 1;
+                                                if ($timeline['id'] === $next_timeline_id) {
+                                                    $link = "/applicant".$timeline['link']."/".$application['application_ref_no'];
+                                                    break;
+                                                }
+                                            } else {
+                                                $link = "/applicant".$timeline['link']."/".$application['application_ref_no'];
+                                                break;
+                                            }
+                                        }
+
+                                    @endphp
+
+                                    <tr>
+                                        <td>
+                                            <a href="{{ $link }}">
+                                                {{ $application['application_ref_no']}}
+                                            </a> 
+                                        </td>
+                                        <td>
+                                            <a href="{{ $link }}">
+                                                {{ date("m/d/Y", strtotime($application['created_at'])) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ $link }}">
+                                                {{ $application['application_status']}} 
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -113,74 +145,82 @@
         </div>
 
         <section class="col-md-6">
-            <div class="card rounded-0 shadow-lg p-1">
-                <div class="card-body">
-                    <div class="text-center mb-2">
-                        <span class=" lead font-weight-bold">
-                            Health Certificate Application
-                        </span><br />
-                        <small class="text-center">Apply for Health certificate, online HIV seminar, get digital copy of your health card</small>
-                    </div>
-                
-
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label for="fname" class="">Classification <i class="text-red">*</i></label>
-                            <x-dropdowns xtype='classifications' />
+            <form action="">
+                <div class="card rounded-0 shadow-lg p-1">
+                    <div class="card-body">
+                        <div class="text-center mb-2">
+                            <span class=" lead font-weight-bold">
+                                Health Certificate Application
+                            </span><br />
+                            <small class="text-center">Apply for Health certificate, online HIV seminar, get digital copy of your health card</small>
                         </div>
-                    </div>
+                    
 
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label for="fname" class="">Application Type <i class="text-red">*</i></label>
-                            <x-dropdowns xtype='application_types' />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label for="fname" class="">Industry <i class="text-red">*</i></label>
-                            <x-dropdowns xtype='industries' />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label for="fname" class="">Sub-Industry <i class="text-red">*</i></label>
-                            <x-dropdowns xtype='sub_industries' />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label for="fname" class="">Business Line <i class="text-red">*</i></label>
-                            <x-dropdowns xtype='business_lines' />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            
-                            <div class="custom-control custom-checkbox form-group form-check text-left">
-                                <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" style="margin-left: 0rem !important;" required="">
-                                <label class="custom-control-label" for="customCheck" required="">
-                                    Public Employment Service Office (PESO) beneficiary
-                                </label>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label for="fname" class="">Classification <i class="text-red">*</i></label>
+                                <x-dropdowns xtype='classifications' />
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label for="fname" class="">Application Type <i class="text-red">*</i></label>
+                                <x-dropdowns xtype='application_types' />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label for="fname" class="">Industry <i class="text-red">*</i></label>
+                                <x-dropdowns xtype='industries' />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label for="fname" class="">Sub-Industry <i class="text-red">*</i></label>
+                                <x-dropdowns xtype='sub_industries' />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label for="fname" class="">Business Line <i class="text-red">*</i></label>
+                                <x-dropdowns xtype='business_lines' />
+                            </div>
+                        </div>
+
+                        {{-- <div class="row">
+                            <div class="form-group col-lg-12">
+                                
+                                <div class="custom-control custom-checkbox form-group form-check text-left">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" style="margin-left: 0rem !important;" required="">
+                                    <label class="custom-control-label" for="customCheck" required="">
+                                        Public Employment Service Office (PESO) beneficiary
+                                    </label>
+                                </div>
+                            </div>
+                        </div> --}}
+
+                        <button type="button" class="btn btn-outline-primary btn-flat btn-block" data-trigger="apply-health-certificate">
+                            APPLY FOR HEALTH CERTIFICATE
+                        </button>
+
+                        {{-- <a class="btn btn-outline-primary btn-flat btn-block" href="/applicant/processing/application">
+                            APPLY FOR HEALTH CERTIFICATE
+                        </a> --}}
                     </div>
-
-                    {{-- <button class="btn btn-outline-primary btn-flat btn-block">
-                        APPLY FOR HEALTH CERTIFICATE
-                    </button> --}}
-
-                    <a class="btn btn-outline-primary btn-flat btn-block" href="/applicant/processing/application">
-                        APPLY FOR HEALTH CERTIFICATE
-                    </a>
                 </div>
-            </div>
+            </form>
         </section>
     </div>
 
 </div>
+
 @include('partials.applicant.footer')
+
+<script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
+<script src="{{ asset('assets/scripts/components/dropdown.js') }}"></script>
+<script src="{{ asset('assets/scripts/modules/health/application.js') }}"></script>
+

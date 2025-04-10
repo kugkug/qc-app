@@ -110,9 +110,13 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-outline-primary btn-flat btn-block">
+                        {{-- <button class="btn btn-outline-primary btn-flat btn-block">
                             APPLY FOR SANITARY PERMIT
-                        </button>
+                        </button> --}}
+
+                        <a class="btn btn-outline-primary btn-flat btn-block" href="/business/processing/application">
+                            APPLY FOR SANITARY PERMIT
+                        </a>
                     </div>
                 </div>
             </section>

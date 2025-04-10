@@ -2,7 +2,8 @@
 
 <div class="container">
     
-    <x-timeline xtitle={{$module_title}}/>
+    {{-- <x-timeline xtitle="{{$module_title}}" xrefno="{{$application['application_ref_no']}}" xname="Upload Requirements" xpath='/applicant'/> --}}
+    @include('components.timeline')
 
     <div class="card rounded-0">
         <div class="card-header border-0">

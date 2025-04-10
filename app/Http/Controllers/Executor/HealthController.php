@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Http\Controllers\Executor;
+
+use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+class HealthController extends Controller {
+
+    public function apply_health_certificate(Request $request) {
+        try {
+
+            $response = apiHelper()->execute($request, '/api/applicant/apply-health-certificate', 'POST');
+
+            if ($response['status'] == false) {
+                return globalHelper()->ajaxErrorResponse('');
+            }
+            
+            $html_response = "_systemAlert('info', 'Congratulations, please click the button to continue.', 
+                function() { location = '/applicant/processing/application/".$response['response']['application_ref_no']."'; });
+                ";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+            
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
+
+    public function process_application(Request $request, $application_ref_no) {
+        try {
+
+            $response = apiHelper()->execute($request, "/api/applicant/process-application/$application_ref_no", 'POST');
+
+            if ($response['status'] == false) {
+                return globalHelper()->ajaxErrorResponse('');
+            }
+            
+            $html_response = "location = '/applicant/processing/upload-requirements/".$application_ref_no."';";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+            
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
+
+}

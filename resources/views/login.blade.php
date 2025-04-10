@@ -2,40 +2,36 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="card rounded-0">
                 <div class="card-header">
                     <h5 class="card-title">Sign in to start your session</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/execute/login">
-                        @csrf
+                    <form>
                         <div class="input-group mb-3">
-                            <input type="text" name="email" class="form-control" placeholder="Username" value="{{ old('email')}}">
+                            <input type="text" class="form-control rounded-0" placeholder="Email Address" data="req" data-key="email">
                             <div class="input-group-append">
-                                <div class="input-group-text">
+                                <div class="input-group-text rounded-0">
                                     <span class="fas fa-envelope"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control rounded-0" placeholder="Password" data="req" data-key="password">
                             <div class="input-group-append">
-                                <div class="input-group-text">
+                                <div class="input-group-text rounded-0">
                                     <span class="fas fa-lock"></span>
                                 </div>
                             </div>
                         </div>
-                        @error('message')
-                            <p class="text-danger">
-                                {{$message}}
-                            </p>
-                        @enderror
-                        {{-- <button type="submit" class="btn btn-outline-primary btn-block rounded-0">Sign In</button> --}}
-                        <a class="btn btn-outline-primary btn-block btn-flat" href="applicant/home">Sign In</a>
+                        
+                        <p class="text-danger d-none" data-role="p-error-message"></p>
+
+                        <button type="button" class="btn btn-outline-primary btn-block rounded-0" data-trigger="login">Sign In</button>
                         <hr />
                         <a class="btn btn-outline-info btn-block btn-flat" href="register">Register</a>
         
@@ -49,3 +45,6 @@
 @include('components.terms_of_use')
 @include('components.data_privacy_policy')
 @include('partials.unauth.footer')
+
+<script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
+<script src="{{ asset('assets/scripts/modules/registration.js') }}"></script>

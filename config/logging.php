@@ -51,6 +51,13 @@ return [
     */
 
     'channels' => [
+        'info' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/laravel_'.date("Ymd").'.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true,
+        ],
 
         'stack' => [
             'driver' => 'stack',

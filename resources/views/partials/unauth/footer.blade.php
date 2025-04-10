@@ -1,6 +1,6 @@
 </div>
 </div>
-<footer class="bg-primary text-white">
+<footer class="bg-primary-system text-white ">
     <!-- Grid container -->
     <div class="container p-4">
       <!--Grid row-->
@@ -27,10 +27,15 @@
     </div>
     
   </footer>
+  @include('partials.unauth.assets.fullscreenloader')
 
 <script src="{{ asset('assets/adminlte3.2/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/confirm/js/jquery-confirm.js') }}"></script>
+<script src="{{ asset('assets/adminlte3.2/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('assets/js/modules/scripts.js') }}"></script>
 
 </body>
 </html>
