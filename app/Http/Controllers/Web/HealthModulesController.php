@@ -28,6 +28,14 @@ class HealthModulesController extends Controller {
         return view("registration")->with(['page_name' => "Registration"]);
     }
 
+    public function about_us() {
+        return view("about_us")->with(['page_name' => "About Us"]);
+    }
+
+    public function contact_us() {
+        return view("contact_us")->with(['page_name' => "Contact Us"]);
+    }
+
     public function home() {
         $this->data['page_name'] = 'Home';
         return view("modules.applicant.home", $this->data);
@@ -107,37 +115,159 @@ class HealthModulesController extends Controller {
 
     public function processing_validate_requirements($ref_no) {
         
-        $this->data['page_name'] = 'Requirements Validation';
-        return view("modules.applicant.processing_hc.requirements_validation", $this->data);
+        $application = globalHelper()->getApplicationViaRefNo($ref_no);
+        
+        if ($application) {
+            $this->data['page_name'] = 'Requirements Validation';
+            $this->data['application'] = $application;
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/applicant'
+                ),
+            );
+            
+            return view("modules.applicant.processing_hc.requirements_validation", $this->data);
+        }
+        
     }
 
     public function processing_payment_order($ref_no) {
         
-        $this->data['page_name'] = 'Payment Order';
-        return view("modules.applicant.processing_hc.payment_order", $this->data);
+        $application = globalHelper()->getUserViaAppRefno($ref_no);
+        
+        if ($application) {
+
+            $this->data['page_name'] = 'Order of Payment';
+            $this->data['application'] = $application;
+            $this->data['ref_no'] = $ref_no;
+            $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+
+            $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/applicant'
+                ),
+            );
+            return view("modules.applicant.processing_hc.payment_order", $this->data);
+        }
+        return redirect("/applicant/home");
     }
 
     public function processing_payment_validation($ref_no) {
         
-        $this->data['page_name'] = 'Payment Validation';
-        return view("modules.applicant.processing_hc.payment_validation", $this->data);
+        $application = globalHelper()->getUserViaAppRefno($ref_no);
+        
+        if ($application) {
+
+            $this->data['page_name'] = 'Payment Validation';
+            $this->data['application'] = $application;
+            $this->data['ref_no'] = $ref_no;
+            $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+
+            $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/applicant'
+                ),
+            );
+            return view("modules.applicant.processing_hc.payment_validation", $this->data);
+        }
+        
+        return redirect("/applicant/home");
     }
 
     public function processing_seminar_laboratories($ref_no) {
+
+        $application = globalHelper()->getUserViaAppRefno($ref_no);
         
-        $this->data['page_name'] = 'HIV Seminar & Laboratories';
-        return view("modules.applicant.processing_hc.seminar_laboratories", $this->data);
+        if ($application) {
+
+            $this->data['page_name'] = 'HIV Seminar & Laboratories';
+            $this->data['application'] = $application;
+            $this->data['ref_no'] = $ref_no;
+            $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/applicant'
+                ),
+            );
+            return view("modules.applicant.processing_hc.seminar_laboratories", $this->data);
+        }
     }
 
     public function processing_head_approval($ref_no) {
+        $application = globalHelper()->getUserViaAppRefno($ref_no);
+        
+        if ($application) {
 
-        $this->data['page_name'] = 'Head Approval';
-        return view("modules.applicant.processing_hc.approval", $this->data);
+            $this->data['page_name'] = 'Head Approval';
+            $this->data['application'] = $application;
+            $this->data['ref_no'] = $ref_no;
+            $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+
+            $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/applicant'
+                ),
+            );
+            return view("modules.applicant.processing_hc.approval", $this->data);
+        }
+        
+        return redirect("/applicant/home");
+
     }
 
     public function processing_certificate_issuing($ref_no) {
 
-        $this->data['page_name'] = 'Certificate Issuing';
-        return view("modules.applicant.processing_hc.certificate_issuing", $this->data);
+        $application = globalHelper()->getUserViaAppRefno($ref_no);
+        
+        if ($application) {
+
+            $this->data['page_name'] = 'Certificate Issuing';
+            $this->data['application'] = $application;
+            $this->data['ref_no'] = $ref_no;
+            $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+
+            $this->data['pdf_file'] = reportHelper()->generateHealthCardId($ref_no);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/applicant'
+                ),
+            );
+            return view("modules.applicant.processing_hc.certificate_issuing", $this->data);
+        }
+
+        return redirect("/applicant/home");
     }
 }

@@ -32,12 +32,19 @@ class KeysHelper {
         'BusinessLineId' => 'business_line_id',
         'CompanyName' => 'company_name',
         'CompanyAddress' => 'company_address',
-
+        'ApplicationStatus' => 'application_status',
 
         'Requirement' => 'requirement',
         'Photo' => 'photo',
         'Status' => 'status',
         'Notes' => 'notes',
+
+        'ReceiptPhoto' => 'receipt_photo',
+        'PaymentInformation' => 'payment_information',
+        'ReferenceNo' => 'reference_no',
+        'ReceiptPhoto' => 'receipt_photo',
+        'CreatedBy' => 'created_by',
+        'CheckedBy' => 'checked_by',
     ];
     
     public function getKey(string $key_index): string {

@@ -12,7 +12,6 @@ class ReportModulesController extends Controller
 {
     
     public function viewPdf() {
-        
         Pdf::view('reports.pdf.invoice')
         ->format(Format::A4)
         ->save('pdf/invoice.pdf');

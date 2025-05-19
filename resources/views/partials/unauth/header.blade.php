@@ -24,20 +24,41 @@
 <body class="hold-transition layout-top-nav">
     <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
         <div class="container">
-          <a href="/applicant/home" class="navbar-brand">
-            <img src="{{ asset('assets/images/system/qc_services_logo.png') }}" alt="AdminLTE Logo" class="brand-image" style="width: 100px;">
-            {{-- <span class="brand-text font-weight-light">{{ $app_name }}</span> --}}
-          </a>
+            <a href="/applicant/home" class="navbar-brand">
+                <img src="{{ asset('assets/images/system/qc_services_logo.png') }}" alt="AdminLTE Logo" class="brand-image" style="width: 100px;">
+                {{-- <span class="brand-text font-weight-light">{{ $app_name }}</span> --}}
+            </a>
     
-          <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+            <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/about-us" class="nav-link">
+                            <i class="fa fa-info"></i>
+                            About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact-us" class="nav-link">
+                            <i class="fa fa-phone"></i> 
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
+        
+                <!-- SEARCH FORM -->
+                
+            </div>
     
 
     
             <!-- SEARCH FORM -->
             
-          </div>
+        </div>
     
       
         </div>

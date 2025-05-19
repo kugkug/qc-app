@@ -40,7 +40,7 @@
                                 @if ($application['classification_id'] === config('system.classification')['individual'])
                                     @php
                                         if ($application['histories']) {
-                                            $last_timeline = $application['histories'][ sizeOf($application['histories']) ];
+                                            $last_timeline = $application['histories'][ array_key_last($application['histories']) ];
                                         } else {
                                             $last_timeline = [];
                                         }

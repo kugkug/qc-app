@@ -38,4 +38,12 @@ class Applications extends Model
     public function histories(): HasMany {
         return $this->hasMany(History::class, 'application_id', 'id');
     }
+    
+    public function requirements(): HasMany {
+        return $this->hasMany(Requirements::class, 'application_ref_no', 'application_ref_no');
+    }
+
+    public function user(): HasOne {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

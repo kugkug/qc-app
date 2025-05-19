@@ -5,6 +5,8 @@ namespace App\Helpers;
 
 use App\Models\Applications;
 use App\Models\History;
+use App\Models\Payment;
+use App\Models\PaymentLookUp;
 use App\Models\RequirementLookUp;
 use App\Models\TimelineLookUp;
 use Exception;
@@ -47,6 +49,18 @@ class GlobalHelper {
         return date("Y").substr(str_shuffle('1234567890'), 0, 6);
     }
 
+    public function generatePaymentRefNo() {
+        return 'O'.date("y").substr(str_shuffle('1234567890'), 0, 7).'R';
+    }
+
+    public function updateApplicationStatusViaRefNo(string $ref_no, int $status): void {
+        try {
+            Applications::where('application_ref_no', $ref_no)->update(['status' => $status]);
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+        }
+    }
+
     public function getApplicationIdViaRefNo(string $ref_no): int {
         try {
             
@@ -66,6 +80,7 @@ class GlobalHelper {
             ->with('industry')
             ->with('sub_industry')
             ->with('business_line')
+            ->with('requirements')
             ->get();
 
             if ($application) {
@@ -126,7 +141,9 @@ class GlobalHelper {
     public function getHistory(int $application_id): array {
         try {
             $app_histories = [];
-            $histories = History::where('application_id', $application_id)->get();
+            $histories = History::where('application_id', $application_id)
+            ->orderBy('timeline_look_up_id', 'asc')
+            ->get();
             
             if ($histories) {
                 foreach($histories as $history) {
@@ -160,5 +177,55 @@ class GlobalHelper {
             'xname' => $timeline,
             'xpath' => $path,
         ];
+    }
+
+    public function getPaymentTypes(): array {
+        try {
+            return PaymentLookUp::orderBy('id', 'asc')->get()->toArray();
+        } catch (Exception $e) { return []; }
+    }
+
+    public function getPaymentDetails(string $ref_no) {
+        try {
+            $total = 0;
+            $payment_types = [];
+            $payment_details = Payment::where('application_ref_no', $ref_no)->get()->toArray()[0];
+            $payment_information = [];
+       
+            foreach($this->getPaymentTypes() as $payment_type) { $payment_types[$payment_type['id']] = $payment_type; }
+            
+            foreach(json_decode($payment_details['payment_information'], true) as $payment_detail) {
+                $payment_information[] = [
+                    'id' => $payment_detail['id'],
+                    'description' => $payment_types[$payment_detail['id']]['description'],
+                    'amount' => $payment_detail['amount'],
+                ];
+
+                $total += $payment_detail['amount'];
+            }
+
+            return ['details' => $payment_information, 'total' => $total, 'ref_no' => $payment_details['reference_no']];
+            
+        } catch (Exception $e) { 
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return []; 
+        }
+    }
+
+    public function getUserViaAppRefno(string $ref_no) {
+        try {
+            $application = Applications::where('application_ref_no', $ref_no)
+            ->with('user')
+            ->with('requirements')
+            ->get();
+
+            if ($application) {
+                return $application->toArray()[0];
+            }
+            return [];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
     }
 }

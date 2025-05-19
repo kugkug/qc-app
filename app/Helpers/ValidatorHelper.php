@@ -81,13 +81,14 @@ class ValidatorHelper {
 
             case 'application_update':
                 return [
-                    'application_type_id' => 'required|integer',
-                    'classification_id' => 'required|integer',
-                    'industry_id' => 'required|integer',
-                    'sub_industry_id' => 'required|integer',
+                    'application_type_id' => 'sometimes|integer',
+                    'classification_id' => 'sometimes|integer',
+                    'industry_id' => 'sometimes|integer',
+                    'sub_industry_id' => 'sometimes|integer',
                     'business_line_id' => 'sometimes|integer',
                     'company_name' => 'sometimes|string',
                     'company_address' => 'sometimes|string',
+                    'application_status' => 'sometimes|integer',
                 ];
             break;
 
@@ -126,6 +127,18 @@ class ValidatorHelper {
                 ];
             break;
             
+            case 'update_payment_order':
+                return [
+                    'application_ref_no' => 'sometimes|integer',
+                    'payment_information' => 'sometimes|string',
+                    'status' => 'sometimes|integer',
+                    'reference_no' => 'sometimes|integer',
+                    'notes' => 'sometimes|string',
+                    'receipt_photo' => 'sometimes|string',
+                    'created_by' => 'sometimes|string',
+                    'checked_by' => 'sometimes|string',
+                ];
+            break;
         }
     }
 

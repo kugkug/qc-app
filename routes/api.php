@@ -30,9 +30,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('update-health-certificate-application/{application_ref_no}', [ApplicantsController::class, 'updateHealthCertificateaApplication'])->name('update_health_certificate');
         
         Route::post('process-application/{application_ref_no}', [ApplicantsController::class, 'processApplication'])->name('update_health_certificate');
-
-        Route::post('upload-requirements', [ApplicantsController::class, 'uploadRequirements'])->name('upload_requirements');
+        Route::post('upload-requirements/{application_ref_no}', [ApplicantsController::class, 'uploadRequirements'])->name('upload_requirements');
+        
         Route::post('update-requirements', [ApplicantsController::class, 'updateRequirements'])->name('update_requirements');
+        Route::post('update-payment-order/{application_ref_no}', [ApplicantsController::class, 'updatePaymentOrder'])->name('update_payment_order');
+
+        Route::post('update-application/{application_ref_no}', [ApplicantsController::class, 'updateApplication'])->name('update_application');
+
     });
 
 });

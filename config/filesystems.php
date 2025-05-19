@@ -59,6 +59,18 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        'upload_document' => [
+            'driver' => 'local',
+            'root' => public_path()."/requirements",
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'upload_payment' => [
+            'driver' => 'local',
+            'root' => public_path()."/payments",
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
     ],
 

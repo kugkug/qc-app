@@ -4,6 +4,7 @@ use App\Helpers\ApiHelper;
 use App\Helpers\DropdownHelper;
 use App\Helpers\GlobalHelper;
 use App\Helpers\KeysHelper;
+use App\Helpers\ReportHelper;
 use App\Helpers\ValidatorHelper;
 use App\Helpers\ViewHelper;
 
@@ -29,4 +30,8 @@ function keysHelper() {
 
 function validatorHelper() {
     return new ValidatorHelper;
+}
+
+function reportHelper() {
+    return new ReportHelper();
 }

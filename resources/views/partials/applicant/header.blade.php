@@ -76,6 +76,18 @@
                       Complain
                   </a>
               </li>
+              <li class="nav-item">
+                <a href="/applicant/home" class="nav-link">
+                    <i class="fa fa-info"></i>
+                    About Us
+                </a>
+              </li>
+              <li class="nav-item">
+                  <a href="/applicant/health_certificate" class="nav-link">
+                      <i class="fa fa-phone"></i> 
+                      Contact Us
+                  </a>
+              </li>
           </ul>
   
           <!-- SEARCH FORM -->

@@ -12,10 +12,9 @@
                     <i class="far fa-check-circle text-success" style="font-size: 15em"></i>
                     <h3 class="font-weight-bold pt-3">Successfully Submitted</h3>
                     <p>
-                        The validation of your application is in progress. Upon issue of an 'Order of Payment'
-                        please proceed to the 'City Treasurers Office (CTO)' for the payment
+                        The validation of your payment is in progress. Please wait until 3-5 working days.
                     </p>
-                    <a class="btn btn-outline-primary btn-flat" href="/applicant/processing/payment-order">VIEW ORDER OF PAYMENT</a>
+                    {{-- <a class="btn btn-outline-primary btn-flat" href="/applicant/processing/payment-order">VIEW ORDER OF PAYMENT</a> --}}
                 </div>
             </div>
         </div>

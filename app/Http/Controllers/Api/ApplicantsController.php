@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Applications;
+use App\Models\Payment;
 use App\Models\Requirements;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -208,14 +210,12 @@ class ApplicantsController extends Controller {
             unset($validated['validated']['company_address']);
             
             $application = Applications::where('application_ref_no', $application_ref_no)->first();
+            
             if ($application) {
                 $application->update($company_data);
                 $user = User::where('id', $user_id)->update($validated['validated']);
                 
                 if ($user) {
-
-                    globalHelper()->logHistory($application['id'], 'Application Form');
-
                     DB::commit();
                     return ['status' => true ];
                 }
@@ -236,35 +236,83 @@ class ApplicantsController extends Controller {
         }
     }
 
-    public function uploadRequirements(Request $request) {
+    public function updateApplication(Request $request, $ref_no) {
+
         DB::beginTransaction();
         try {
 
-            $application_ref_no = $request->ApplicationRefNo;
-            $requirements = $request->Requirements;
+            $updated = [];
+            $validated = validatorHelper()->validate('application_update', $request);
 
-            
-            $requirement_data = array_map(function($requirement) use ($application_ref_no) {
-                
-                return [
-                    'application_ref_no' => $application_ref_no,
-                    'requirement' => $requirement['Requirement'],
-                    'photo' => $requirement['Photo'],
-                    'status' => config('system.requirement_status.new'),
-                ];
-            }, $requirements);
-
-            if ($requirement_data) {
-                $requirements_saved = Requirements::insert($requirement_data);
+            if (! $validated['status']) {
+                return $validated;
             }
 
-            // globalHelper()->logHistory($application['id'], 'Upload Requirements');
-            DB::commit();
+            $application = Applications::where('application_ref_no', $ref_no)->first();
+            if ($application) {
+                $application->update($validated['validated']);
+                $updated = $application->refresh();
 
-            return [
-                'status' => true,
-                'response' => $requirements_saved,
-            ];
+                DB::commit();
+
+                return [
+                    'status' => true,
+                    'response' => $updated,
+                ];
+            }
+            
+            Log::channel('info')->info("Invalid Reference No: " . $ref_no);
+            return ['status' => false];
+            
+            
+        } catch (Exception $e) {
+
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            DB::rollBack();
+            
+            return ['status' => false];
+            
+        }
+    }
+
+    public function uploadRequirements(Request $request, $application_ref_no) {
+        DB::beginTransaction();
+        try {
+
+            $image_files = [];
+            
+            $images = $request->file('Images');
+            $requirements = $request->Requirements;
+            $acquired_dates = $request->AcquiredDates;
+            
+            $n = 0;
+            if ($images) {
+                foreach($images as $image) {
+
+                    $requirement = $requirements[$n];
+                    $acquired_date = $acquired_dates[$n];
+                    
+                    $orig_file = str_replace("'", "", $image->getClientOriginalName());
+                    $ext = $image->getClientOriginalExtension();
+                    $filename = $application_ref_no."_".$requirement."_".str_replace(" ", "_", $orig_file);
+                    $image->storeAs('', $filename, 'upload_document');
+
+                    $requirement_data_keys = ['application_ref_no' => $application_ref_no, 'requirement' => $requirement];
+                    $requirement_data_vals = [
+                        'photo' => $filename, 
+                        'status' => config('system.requirement_status')['new'],
+                        'acquired_at' => Carbon::parse($acquired_date)->format("Y-m-d"),
+                    ];
+                    
+                    Requirements::updateOrCreate($requirement_data_keys, $requirement_data_vals);
+
+                    $n++;
+                }
+            }
+
+            DB::commit();
+            
+            return ['status' => true];
             
         } catch (Exception $e) {
 
@@ -283,7 +331,7 @@ class ApplicantsController extends Controller {
             
             $application_ref_no = $request->ApplicationRefNo;
             $requirements = $request->Requirements;
-            
+
             foreach ($requirements as $requirement) {
                 $requirement_id = $requirement['Requirement'];
             
@@ -306,9 +354,39 @@ class ApplicantsController extends Controller {
             Log::channel('info')->info(json_encode($e->getMessage()));
             DB::rollBack();
             
+            return ['status' => false];   
+        }
+    }
+
+    public function updatePaymentOrder($ref_no, Request $request) {
+        DB::beginTransaction();
+        try {
+            
+            $receipt = $request->file('RecieptPhoto');
+
+            if ($receipt) {
+                
+                $orig_file = str_replace("'", "", $receipt->getClientOriginalName());
+                $filename = $ref_no."_".str_replace(" ", "_", $orig_file);
+                $receipt->storeAs('', $filename, 'upload_payment');
+            
+                Payment::where('application_ref_no', $ref_no)->update([
+                    'receipt_photo' => $filename,
+                    'status' => config('system.payment_status')['for-review'],
+                ]);
+            }
+
+            DB::commit();
+
+            return ['status' => true];
+            
+        } catch (Exception $e) {
+
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            DB::rollBack();
+            
             return ['status' => false];
             
         }
-
     }
 }

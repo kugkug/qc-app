@@ -9,11 +9,11 @@
             <div class="card rounded-0 shadow-lg">
                 <div class="card-body text-center">
                     <i class="far fa-check-circle text-success" style="font-size: 15em"></i>
-                    <h3 class="font-weight-bold pt-3">Review Completed</h3>
+                    <h3 class="font-weight-bold pt-3">Seminar Completed</h3>
                     <p>
-                        Application has been reviewed and approved
+                        Please wait for approval.
                     </p>
-                    <a class="btn btn-outline-primary btn-flat" href="/applicant/processing/certificate-issuing">GO TO CERTIFICATE ISSUING</a>
+                    {{-- <a class="btn btn-outline-primary btn-flat" href="/applicant/processing/certificate-issuing/{{$ref_no}}">GO TO CERTIFICATE ISSUING</a> --}}
                 </div>
             </div>
         </div>

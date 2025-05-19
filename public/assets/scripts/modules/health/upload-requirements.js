@@ -70,6 +70,13 @@ $(document).ready(function () {
                 h++;
             }
 
+            if (fileType != "png" && fileType != "jpg" && fileType != "jpeg") {
+                _systemAlert(
+                    "warning",
+                    "Please be advised, this system can only accept PNG, JPG and JPEG formatted file with up to 25MB max size."
+                );
+                return;
+            }
             let parentDiv = $(this).closest("div.row");
             let previewBtn = $(parentDiv).find("button.btn-preview")[0];
 
@@ -96,76 +103,40 @@ $(document).ready(function () {
         });
     }
 
-    // if (file.length) {
-    //     $(file).off();
-    //     $(file).click();
-    //     $(file).on("change", function (e) {
-    //         var nSize = $(this).get(0).files[0].size;
-    //         var sFileName = $(this).get(0).files[0].name;
-    //         var sFullPath = URL.createObjectURL(e.target.files[0]);
+    if ($("[data-trigger=upload-requirements]").length) {
+        $("[data-trigger=upload-requirements]").off();
+        $("[data-trigger=upload-requirements]").on("click", function () {
+            let parentForm = $(this).closest("form");
 
-    //         var aFileName = sFileName.split(".");
-    //         var sFileType = aFileName[aFileName.length - 1].toLowerCase();
+            // if (!_checkFormFields(parentForm)) {
+            //     _systemAlert("warning", "Please complete the required fields!");
+            //     return;
+            // }
 
-    //         var fSExt = new Array("Bytes", "KB", "MB", "GB"),
-    //             h = 0;
-    //         while (nSize > 900) {
-    //             nSize /= 1024;
-    //             h++;
-    //         }
+            let json_data_form = new FormData();
+            let image_files = $(".custom-file-input");
 
-    //         var vFileName = "";
-    //         var sInvalid = "";
-    //         var sTooLarge = "";
-    //         var sWrongCamp = "";
+            for (let image_file of image_files) {
+                let image = $(image_file).get(0).files[0];
+                if (!image) continue;
 
-    //         var nExactSize = Math.ceil(Math.ceil(nSize * 100) / 100);
-    //         var vSizeCat = fSExt[h];
-    //         var sSize = nExactSize + "" + vSizeCat;
+                let data_key = $(image_file).attr("data-key");
+                let arr_data_key = data_key.split("_");
+                let date_acquired = $(
+                    "[data-key=DateUploaded_" + arr_data_key[1] + "]"
+                ).val();
 
-    //         if (
-    //             sFileType != "png" &&
-    //             sFileType != "jpg" &&
-    //             sFileType != "jpeg"
-    //         ) {
-    //             sInvalid += sFileName + " - " + sFileType + ".<br />";
-    //         } else {
-    //             if (h < 3) {
-    //                 if (h == 2 && nExactSize > 25) {
-    //                     sTooLarge += sFileName + " - " + sSize + ".<br />";
-    //                 } else {
-    //                     vFileName += sFileName + "\n\n";
-    //                 }
-    //             } else {
-    //                 sTooLarge += sFileName + " - " + sSize + ".<br />";
-    //             }
-    //         }
+                json_data_form.append("Requirements[]", arr_data_key[1]);
+                json_data_form.append("Images[]", image);
+                json_data_form.append("AcquiredDates[]", date_acquired);
+            }
 
-    //         var sMessage = "";
-
-    //         if (sInvalid != "") {
-    //             sMessage +=
-    //                 "<b>File/s Invalid Format:</b> <br />" +
-    //                 sInvalid +
-    //                 "<br /><br />";
-    //         }
-
-    //         if (sTooLarge != "") {
-    //             sMessage +=
-    //                 "<b>File/s Too Large:</b> <br />" +
-    //                 sTooLarge +
-    //                 "<br /><br />";
-    //         }
-
-    //         sMessage +=
-    //             "Please be advised, this system can only accept PNG, JPG and JPEG formatted file with up to 25MB max size.";
-
-    //         if (sTooLarge != "" || sInvalid != "" || sWrongCamp != "") {
-    //             $(this).val("");
-    //             _systemAlert("alert", sMessage);
-    //         } else {
-    //             $(".image-upload").attr("src", sFullPath);
-    //         }
-    //     });
-    // }
+            ajaxSubmit(
+                "/executor/applicant/upload-requirements/" +
+                    $(this).attr("data-refno"),
+                json_data_form,
+                $(this)
+            );
+        });
+    }
 });

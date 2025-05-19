@@ -8,20 +8,22 @@
                 $global_timelines = array_filter($global_timelines, fn($tl) => $tl['timeline'] !== 'HIV Seminar & Laboratories');
             }
 
+            
+
             $cntr = 1;
             $timeline_length = sizeof($global_timelines);
 
             if ($histories) {
-                $last_timeline = $histories[ sizeOf($histories) ];
+                $last_timeline = $histories[ array_key_last($histories) ];
             } else {
                 $last_timeline = [];
             }
+        
         @endphp
+        
         @foreach ($global_timelines as $timeline)
             @php
                 $font_weight_bold = ($timeline['timeline'] == $xname) ? "font-weight-bold" : "";
-                // completed completed-date
-                // inprogress
 
                 $class = "";
                 $date_class = "";
@@ -44,6 +46,8 @@
                         $class = "inprogress";
                         $status = "In-Progress";
                         $date = date('m/d/Y');
+
+                        $link = $xpath.$timeline['link']."/".$xrefno;
                     }
                 }
 

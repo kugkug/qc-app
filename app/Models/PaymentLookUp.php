@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Requirements extends Model
+class PaymentLookUp extends Model
 {
-    protected $guarded = ['id'];
+    
 }

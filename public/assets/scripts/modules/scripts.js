@@ -144,7 +144,7 @@ $(document).ready(function () {
         });
     }
 
-    if ($(".data-table")) {
+    if ($(".data-table").length) {
         $(".data-table").DataTable({
             paging: true,
             lengthChange: true,
