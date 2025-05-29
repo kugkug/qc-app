@@ -11,8 +11,10 @@ class HealthController extends Controller {
 
     public function apply_health_certificate(Request $request) {
         try {
-
-            $response = apiHelper()->execute($request, '/api/applicant/apply-health-certificate', 'POST');
+            $response = apiHelper()->execute(
+            $request->merge(['ApplicationType' => config('system.application_types')['Health-Certificate']]), 
+                '/api/applicant/apply-health-certificate', 'POST'
+            );
 
             if ($response['status'] == false) {
                 return globalHelper()->ajaxErrorResponse('');
@@ -66,6 +68,11 @@ class HealthController extends Controller {
             globalHelper()->logHistory(
                 globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
                 'Upload Requirements'
+            );
+
+            globalHelper()->updateApplicationStatusViaRefNo(
+                $application_ref_no, 
+                config('system.application_status')['uploaded_requirements']
             );
             
             $html_response = "location = '/applicant/processing/validate-requirements/".$application_ref_no."';";

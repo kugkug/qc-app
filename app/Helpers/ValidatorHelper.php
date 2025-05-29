@@ -76,6 +76,7 @@ class ValidatorHelper {
                     'business_line_id' => 'sometimes|integer',
                     'company_name' => 'sometimes|string',
                     'company_address' => 'sometimes|string',
+                    'application_type' => 'required|string',
                 ];
             break;
 

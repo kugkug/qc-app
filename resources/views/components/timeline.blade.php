@@ -7,9 +7,6 @@
             if ($xpath == '/business') {
                 $global_timelines = array_filter($global_timelines, fn($tl) => $tl['timeline'] !== 'HIV Seminar & Laboratories');
             }
-
-            
-
             $cntr = 1;
             $timeline_length = sizeof($global_timelines);
 
@@ -30,6 +27,7 @@
                 $status = "";
                 $date = "";
                 $link = "javascript:void(0)";
+
                 if (array_key_exists($timeline['id'], $histories)) {
                     $class = "completed";
                     $status = "Completed";
@@ -49,6 +47,14 @@
 
                         $link = $xpath.$timeline['link']."/".$xrefno;
                     }
+                }
+                
+                if (! $last_timeline && $timeline['id'] == 1) {
+                    $class = "inprogress";
+                    $status = "In-Progress";
+                    $date = date('m/d/Y');
+
+                    $link = $xpath.$timeline['link']."/".$xrefno;
                 }
 
             @endphp

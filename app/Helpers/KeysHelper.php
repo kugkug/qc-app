@@ -33,6 +33,7 @@ class KeysHelper {
         'CompanyName' => 'company_name',
         'CompanyAddress' => 'company_address',
         'ApplicationStatus' => 'application_status',
+        'ApplicationType' => 'application_type',
 
         'Requirement' => 'requirement',
         'Photo' => 'photo',

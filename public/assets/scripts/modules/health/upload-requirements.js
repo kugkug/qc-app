@@ -108,11 +108,6 @@ $(document).ready(function () {
         $("[data-trigger=upload-requirements]").on("click", function () {
             let parentForm = $(this).closest("form");
 
-            // if (!_checkFormFields(parentForm)) {
-            //     _systemAlert("warning", "Please complete the required fields!");
-            //     return;
-            // }
-
             let json_data_form = new FormData();
             let image_files = $(".custom-file-input");
 

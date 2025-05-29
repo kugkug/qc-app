@@ -15,12 +15,15 @@
                         The validation of your application is in progress. Upon issue of an 'Order of Payment'
                         please proceed to the 'City Treasurers Office (CTO)' for the payment
                     </p>
-                    <a 
-                        class="btn btn-outline-primary btn-flat" 
-                        href="/applicant/processing/payment-order/{{$application['application_ref_no']}}"
-                    >
-                        VIEW ORDER OF PAYMENT
-                    </a>
+
+                    @if($application['application_status'] >= config('system.application_status')['created_payment'])
+                        <a 
+                            class="btn btn-outline-primary btn-flat" 
+                            href="/applicant/processing/payment-order/{{$application['application_ref_no']}}"
+                        >
+                            VIEW ORDER OF PAYMENT
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

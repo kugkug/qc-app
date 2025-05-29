@@ -67,6 +67,10 @@
                                                     <span class="badge bg-danger">Required</span><br />
                                                 @endif
                                                 <small>{{ $requirement_type['description'] }}</small>
+                                                @if($requirement_data['status'] == config('system.requirement_status')['rejected'])
+                                                    <br />
+                                                    <small class="text-red text-bold">{{ $requirements[$requirement_type['id']]['notes'] }}</small>
+                                                @endif
                                                 
                                             </div> 
                                             <div class="col-md-1 d-flex align-items-center">
@@ -77,20 +81,33 @@
                                             </div>
             
                                             <div class="col-md-3 d-flex align-items-center border-right">
-                                                
-                                                <div class="input-group border-2">
-                                                    <div class="custom-file">
-                                                        <input 
-                                                            type="file" 
-                                                            class="custom-file-input" 
-                                                            data-key="ImageFile_{{$requirement_type['id']}}"
-                                                            value="{{ asset($photo) }}"
-                                                        >
-                                                        <label class="custom-file-label">
-                                                            {{ $requirement_data['photo'] }}
-                                                        </label>
+                                                @if($requirement_data['status'] == config('system.requirement_status')['completed'])
+                                                    <div class="input-group border-2">
+                                                        <div class="custom-file">
+                                                            <input 
+                                                                type="text" 
+                                                                value="{{ asset($photo) }}"
+                                                            >
+                                                            <label class="custom-file-label">
+                                                                {{ $requirement_data['photo'] }}
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div class="input-group border-2">
+                                                        <div class="custom-file">
+                                                            <input 
+                                                                type="file" 
+                                                                class="custom-file-input" 
+                                                                data-key="ImageFile_{{$requirement_type['id']}}"
+                                                                value="{{ asset($photo) }}"
+                                                            >
+                                                            <label class="custom-file-label">
+                                                                {{ $requirement_data['photo'] }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endif
             
                                             </div>
                                             <div 
@@ -168,9 +185,19 @@
 
 
                         <div class="custom-control custom-checkbox form-group form-check text-left">
-                            <input type="checkbox" class="custom-control-input chk-req" id="customCheck2" name="example2" style="margin-left: 0rem !important;" required="">
-                            <label class="custom-control-label" for="customCheck2" required="">
+                            <input type="checkbox" class="custom-control-input chk-req" id="chk-certify" name="chk-certify" style="margin-left: 0rem !important;" required="">
+                            <label class="custom-control-label" for="chk-certify" required="">
                                 I certify that provided requirements are valid and true
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox form-group form-check text-left">
+                            <input type="checkbox" class="custom-control-input chk-req" id="chk-privacy" name="chk-privacy" style="margin-left: 0rem !important;" required="">
+                            <label class="custom-control-label" for="chk-privacy" required="">
+                                Accept
+                                <a data-toggle="modal" data-target="#dop_modal" class="text-primary font-weight-bold">
+                                    Data Privacy Policy
+                                </a>
+                                to proceed.
                             </label>
                         </div>
 
@@ -213,7 +240,7 @@
         </div>
     </div>
 </div>
-
+@include('components.data_privacy_policy')
 @include('partials.applicant.footer')
 <script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
 <script src="{{ asset('assets/scripts/modules/health/upload-requirements.js') }}"></script>

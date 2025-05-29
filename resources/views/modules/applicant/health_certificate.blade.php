@@ -35,10 +35,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @foreach ($applications as $application)
-                                @if ($application['classification_id'] === config('system.classification')['individual'])
+                            
+                                @if ($application['application_type'] === config('system.application_types')['Health-Certificate'])
                                     @php
+
                                         if ($application['histories']) {
                                             $last_timeline = $application['histories'][ array_key_last($application['histories']) ];
                                         } else {
@@ -58,7 +60,11 @@
                                         </td>
                                         <td>
                                             <a href="/applicant/processing/application/{{ $application['application_ref_no']}}">
-                                                {{ $application['application_status']}} 
+                                                @php
+                                                    echo ($application['application_status']) ? 
+                                                        config('system.application_progress_status')[$application['application_status']] :
+                                                        "New";
+                                                @endphp
                                             </a>
                                         </td>
                                     </tr>
@@ -69,7 +75,7 @@
                 </div>
             </section>
 
-            <section class="card rounded-0 shadow-lg">
+            {{-- <section class="card rounded-0 shadow-lg">
                 <div class="card-header">
                     <h3 class="card-title">
                         Bulk History
@@ -140,7 +146,7 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
+            </section> --}}
             
         </div>
 
@@ -203,7 +209,7 @@
                             </div>
                         </div> --}}
 
-                        <button type="button" class="btn btn-outline-primary btn-flat btn-block" data-trigger="apply-health-certificate">
+                        <button type="button" class="btn btn-outline-primary btn-flat btn-block" data-trigger="apply-health-certificate" data-type="{{ config('system.application_types')['Health-Certificate']}}">
                             APPLY FOR HEALTH CERTIFICATE
                         </button>
 

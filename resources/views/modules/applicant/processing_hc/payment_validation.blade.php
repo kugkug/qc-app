@@ -14,7 +14,14 @@
                     <p>
                         The validation of your payment is in progress. Please wait until 3-5 working days.
                     </p>
-                    {{-- <a class="btn btn-outline-primary btn-flat" href="/applicant/processing/payment-order">VIEW ORDER OF PAYMENT</a> --}}
+                    @if($application['application_status'] >= config('system.application_status')['validated_payment'])
+                        <a 
+                            class="btn btn-outline-primary btn-flat" 
+                            href="/applicant/processing/seminar-laboratories/{{$application['application_ref_no']}}"
+                        >
+                            GO TO SEMINAR
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

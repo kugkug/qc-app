@@ -23,11 +23,23 @@ return [
         'completed' => 99,
     ],
 
+    'application_progress_status' => [
+        1 => 'Application Created',
+        2 => 'For-Review',
+        3 => 'Requirements Validated',
+        4 => 'Payment Created',
+        5 => 'Payment Validated',
+        6 => 'Ongoing Seminar',
+        7 => 'For Head Approval',
+        8 => 'Released',
+        98 => 'Rejected',
+        99 => 'Completed',
+    ],
+
     'requirement_status' => [
         'new' => 1,
-        'updated' => 2,
+        'completed' => 2,
         'rejected' => 3,
-        'accepted' => 4,
     ],
 
     'classification' => [
@@ -51,5 +63,10 @@ return [
         'for-review' => 1,
         'approved' => 2,
         'rejected' => 3,
+    ],
+    
+    'application_types' => [
+        'Health-Certificate' => 'hc',
+        'Sanitary-Permit' => 'sp'
     ]
 ];

@@ -337,7 +337,7 @@ class ApplicantsController extends Controller {
             
                 $requirement_data = [
                     'photo' => $requirement['Photo'],
-                    'status' => config('system.requirement_status.updated'),
+                    'status' => config('system.requirement_status.new'),
                 ];
 
                 Requirements::where('application_ref_no', $application_ref_no)
