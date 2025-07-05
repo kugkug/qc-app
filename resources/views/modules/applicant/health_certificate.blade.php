@@ -40,7 +40,6 @@
                             
                                 @if ($application['application_type'] === config('system.application_types')['Health-Certificate'])
                                     @php
-
                                         if ($application['histories']) {
                                             $last_timeline = $application['histories'][ array_key_last($application['histories']) ];
                                         } else {
@@ -209,13 +208,14 @@
                             </div>
                         </div> --}}
 
-                        <button type="button" class="btn btn-outline-primary btn-flat btn-block" data-trigger="apply-health-certificate" data-type="{{ config('system.application_types')['Health-Certificate']}}">
+                        <button 
+                            type="button" 
+                            class="btn btn-outline-primary btn-flat btn-block" 
+                            data-trigger="apply-health-certificate" 
+                            data-type="{{ config('system.application_types')['Health-Certificate']}}"
+                        >
                             APPLY FOR HEALTH CERTIFICATE
                         </button>
-
-                        {{-- <a class="btn btn-outline-primary btn-flat btn-block" href="/applicant/processing/application">
-                            APPLY FOR HEALTH CERTIFICATE
-                        </a> --}}
                     </div>
                 </div>
             </form>

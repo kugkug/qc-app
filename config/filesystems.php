@@ -71,7 +71,12 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
-
+        'upload_complaint' => [
+            'driver' => 'local',
+            'root' => public_path()."/complaints",
+            'visibility' => 'public',
+            'throw' => false,
+        ],
     ],
 
     /*

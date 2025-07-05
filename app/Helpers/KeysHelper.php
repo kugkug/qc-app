@@ -46,6 +46,12 @@ class KeysHelper {
         'ReceiptPhoto' => 'receipt_photo',
         'CreatedBy' => 'created_by',
         'CheckedBy' => 'checked_by',
+
+        'BusinessName' => 'business_name',
+        'BusinessAddress' => 'business_address',
+        'ComplaintPhoto' => 'complaint_photo',
+        'ComplaintDescription' => 'complaint_description',
+        'SpecificBarangayStreet' => 'specific_barangay_street',
     ];
     
     public function getKey(string $key_index): string {

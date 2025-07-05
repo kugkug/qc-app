@@ -1,9 +1,13 @@
+
 <div class="row">
     <div class="col-md-12">
     
         <dl>
             <dt class="font-weight-normal text-muted">Full Name</dt>
-            <dd class="font-weight-bold">{{ ucwords(strtolower( $user_info['lastname'] ." " .$user_info['firstname'] . ", ".$user_info['lastname'] ))}}</dd>
+            <dd class="font-weight-bold">
+                
+                {{ ucwords(strtolower( $user_info['lastname'] ." " .$user_info['firstname'] . ", ".$user_info['lastname'] ))}}
+            </dd>
         </dl>
     </div>
     
@@ -13,7 +17,10 @@
     <div class="col-md-4">
         <dl>
             <dt class="font-weight-normal text-muted">Classification</dt>
-            <dd class="font-weight-bold">{{ ucwords(strtolower( $application['classification']['classification'])) }}</dd>
+            <dd class="font-weight-bold">
+                
+                {{ $application['classification'] ? ucwords(strtolower( $application['classification']['classification'])) : '-' }}
+            </dd>
         </dl>
     </div>
     <div class="col-md-4">
@@ -50,8 +57,6 @@
             </dd>
         </dl>
     </div>
-    
-    
 </div>
 
 <div class="row">

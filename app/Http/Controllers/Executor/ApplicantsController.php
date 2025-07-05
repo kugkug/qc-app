@@ -72,4 +72,25 @@ class ApplicantsController extends Controller
             return globalHelper()->ajaxErrorResponse('');
         }
     }
+
+    public function submit_complaint(Request $request) {
+        try {
+            
+            $response = apiHelper()->execute($request, '/api/applicant/submit-complaint', 'POST'); 
+            
+            if ($response['status'] == false) {
+                return isset($response['response']) ? 
+                    globalHelper()->ajaxErrorResponse($response['response']) :
+                    globalHelper()->ajaxErrorResponse('');
+            }
+
+            $html_response = "location ='/applicant/laboratory_follow_up';";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+
+        } catch (Exception $e) {
+            Log::channel('info')->info($e->getMessage(), $e->getTrace());
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
 }

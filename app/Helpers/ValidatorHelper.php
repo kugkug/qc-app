@@ -11,8 +11,9 @@ class ValidatorHelper {
     public function validate(string $type, Request $request): array {
         
         $mapped = $this->key_map($request->except([
-            'ConfirmPassword'
+            'ConfirmPassword', 'ComplaintPhoto'
         ]));
+        
         $validated = Validator::make($mapped, $this->rules($type));
         
         if ($validated->fails()) {
@@ -70,7 +71,7 @@ class ValidatorHelper {
                     'application_ref_no' => 'required|string',
                     'user_id' => 'required|integer',
                     'application_type_id' => 'required|integer',
-                    'classification_id' => 'required|integer',
+                    'classification_id' => 'sometimes|integer',
                     'industry_id' => 'required|integer',
                     'sub_industry_id' => 'required|integer',
                     'business_line_id' => 'sometimes|integer',
@@ -140,6 +141,16 @@ class ValidatorHelper {
                     'checked_by' => 'sometimes|string',
                 ];
             break;
+
+            case 'submit_complaint':
+                return [
+                    'user_id' => 'required|integer',
+                    'business_name' => 'required|string',
+                    'business_address' => 'required|string',
+                    'complaint_description' => 'required|string',
+                    'specific_barangay_street' => 'required|string',
+                    'sentiments' => 'sometimes|string',
+                ];
         }
     }
 

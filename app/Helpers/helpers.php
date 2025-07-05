@@ -5,6 +5,7 @@ use App\Helpers\DropdownHelper;
 use App\Helpers\GlobalHelper;
 use App\Helpers\KeysHelper;
 use App\Helpers\ReportHelper;
+use App\Helpers\SentimentHelper;
 use App\Helpers\ValidatorHelper;
 use App\Helpers\ViewHelper;
 
@@ -34,4 +35,8 @@ function validatorHelper() {
 
 function reportHelper() {
     return new ReportHelper();
+}
+
+function sentimentHelper() {
+    return new SentimentHelper;
 }

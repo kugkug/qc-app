@@ -5,21 +5,49 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SanitaryModulesController extends Controller {
     
     public $data;
     public function __construct() {
-        $this->data = [];
-        $this->data = [
-            'module_title' => 'Sanitary Permit Application',
-        ];
+        $this->data = [ 'user_info' => [] ];
+        $user_info = Auth::user();
+        if ( $user_info) {
+            $this->data['user_info'] = $user_info;
+            $this->data['applications'] = globalHelper()->getApplicationsViaUserId(Auth::id());
+        }
+        
+        $this->data['module_title'] = $this->data['xtitle'] = 'Sanitary Permit Application';
+    }
+    
+    public function sanitary_permit() {
+        $this->data['page_name'] = 'Sanitary Permit';
+        return view("modules.applicant.sanitary_permit", $this->data);
     }
 
-    public function processing_application() {
+    public function processing_application($ref_no) {
         
-        $this->data['page_name'] = 'Application Form';
-        return view("modules.applicant.processing_sp.application", $this->data);
+        $application = globalHelper()->getApplicationViaRefNo($ref_no);
+
+        if ($application) {
+            $this->data['page_name'] = 'Application Form';
+            $this->data['application'] = $application;
+            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            
+            $this->data = array_merge(
+                $this->data, 
+                globalHelper()->getApplicationData(
+                    $ref_no,
+                    $this->data['page_name'],
+                    '/business'
+                ),
+            );
+
+            return view("modules.applicant.processing_sp.application", $this->data);
+        }
+        
+        return redirect("/applicant/home");
     }
 
     public function processing_upload_requirements() {

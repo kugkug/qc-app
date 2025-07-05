@@ -20,6 +20,7 @@ class HealthModulesController extends Controller {
         
         $this->data['module_title'] = $this->data['xtitle'] = 'Health Certificate Application';
     }
+    
     public function login() {
         return view("login")->with(['page_name' => "Log In"]);
     }
@@ -41,16 +42,12 @@ class HealthModulesController extends Controller {
         return view("modules.applicant.home", $this->data);
     }
 
+
     public function health_certificate() {
 
         $this->data['page_name'] = 'Health Certificate';
         return view("modules.applicant.health_certificate", $this->data);
         
-    }
-
-    public function sanitary_permit() {
-        $this->data['page_name'] = 'Sanitary Permit';
-        return view("modules.applicant.sanitary_permit", $this->data);
     }
 
     public function laboratory_followup() {
