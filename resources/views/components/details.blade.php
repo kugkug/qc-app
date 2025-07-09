@@ -41,19 +41,11 @@
     
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <dl>
             <dt class="font-weight-normal text-muted">Sub-Industry</dt>
             <dd class="font-weight-bold border-bottom border-dark text-truncate">
                 {{ ucwords(strtolower( $application['sub_industry']['sub_industry'])) }}
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-6">
-        <dl>
-            <dt class="font-weight-normal text-muted">Business Line</dt>
-            <dd class="font-weight-bold border-bottom border-dark text-truncate">
-                {{ ucwords(strtolower( $application['business_line']['business_line'])) }}
             </dd>
         </dl>
     </div>

@@ -189,12 +189,12 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="form-group col-lg-12">
                                 <label for="fname" class="">Business Line <i class="text-red">*</i></label>
                                 <x-dropdowns xtype='business_lines' />
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- <div class="row">
                             <div class="form-group col-lg-12">

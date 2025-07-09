@@ -34,13 +34,12 @@ class HealthController extends Controller {
 
     public function process_application(Request $request, $application_ref_no) {
         try {
-
+            
             $response = apiHelper()->execute($request, "/api/applicant/process-application/$application_ref_no", 'POST');
-
+            
             if ($response['status'] == false) {
                 return globalHelper()->ajaxErrorResponse('');
             }
-            
 
             globalHelper()->logHistory(
                 globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
@@ -52,7 +51,7 @@ class HealthController extends Controller {
             return globalHelper()->ajaxSuccessResponse($html_response);
             
         } catch (Exception $e) {
-            Log::channel('info')->info(json_encode($e->getMessage()));
+            Log::channel('info')->info(json_encode($e->getTrace()));
             return globalHelper()->ajaxErrorResponse('');
         }
     }
@@ -70,9 +69,21 @@ class HealthController extends Controller {
                 'Upload Requirements'
             );
 
+            $histories = globalHelper()->getHistory(
+                globalHelper()->getApplicationIdViaRefNo($application_ref_no)
+            );
+
+            if ($histories) {
+                $last_timeline = $histories[ array_key_last($histories) ];
+            } else {
+                $last_timeline = [];
+            }
+
+            $last_timeline_status = $last_timeline['timeline_look_up_id'];
+            
             globalHelper()->updateApplicationStatusViaRefNo(
                 $application_ref_no, 
-                config('system.application_status')['uploaded_requirements']
+                $last_timeline_status
             );
             
             $html_response = "location = '/applicant/processing/validate-requirements/".$application_ref_no."';";

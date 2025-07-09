@@ -23,7 +23,6 @@
 @elseif($xtype == 'classifications')
 
     <select class="form-control rounded-0" data-key="ClassificationId" data="req">
-        <option value="" selected="selected">- Select Classification -</option>
         @foreach ($global_dropdowns['classifications'] as $item)
             <option value="{{$item['id']}}">{{$item['classification']}}</option>
         @endforeach

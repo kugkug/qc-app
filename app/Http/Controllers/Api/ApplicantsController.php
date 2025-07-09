@@ -122,7 +122,6 @@ class ApplicantsController extends Controller {
     public function applyHealthCertificate(Request $request) {
         DB::beginTransaction();
         try {
-
             $application_ref_no = globalHelper()->generateApplicationRefNo();
             $user_id = Auth::id();
 
@@ -130,6 +129,7 @@ class ApplicantsController extends Controller {
                 'ApplicationRefNo' => $application_ref_no,
                 'UserId' => $user_id,
             ]));
+
 
             if (! $validated['status']) {
                 return $validated;

@@ -9,17 +9,22 @@
             }
             $cntr = 1;
             $timeline_length = sizeof($global_timelines);
+            $application_status = $application['application_status'];
+            
 
             if ($histories) {
                 $last_timeline = $histories[ array_key_last($histories) ];
             } else {
                 $last_timeline = [];
             }
-        
+
+            $last_timeline_status = $last_timeline['timeline_look_up_id'];
+            
         @endphp
         
         @foreach ($global_timelines as $timeline)
             @php
+
                 $font_weight_bold = ($timeline['timeline'] == $xname) ? "font-weight-bold" : "";
 
                 $class = "";
@@ -48,14 +53,27 @@
                         $link = $xpath.$timeline['link']."/".$xrefno;
                     }
                 }
-                
-                if (! $last_timeline && $timeline['id'] == 1) {
+
+                if (! $last_timeline && $timeline['id'] == 1 && $application_status == 1) {
                     $class = "inprogress";
                     $status = "In-Progress";
                     $date = date('m/d/Y');
 
                     $link = $xpath.$timeline['link']."/".$xrefno;
                 }
+
+                if ($last_timeline_status != $application_status) {
+                    if ($application_status == $timeline['id']) {
+                        $class = "requiresupdate";
+                        $status = "Requires Update";
+                    }
+                }
+                //     $class = "requiresupdate";
+                //     $status = "Requires Update";
+                //     $date = date('m/d/Y');
+
+                //     $link = $xpath.$timeline['link']."/".$xrefno;
+                // }
 
             @endphp
             
