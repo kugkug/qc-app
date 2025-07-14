@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use App\Models\Applications;
+use App\Models\Business;
+use App\Models\BusinessRequirementLookUp;
+use App\Models\BusinessTimelineLookUp;
 use App\Models\History;
 use App\Models\Payment;
 use App\Models\PaymentLookUp;
@@ -22,9 +25,21 @@ class GlobalHelper {
         } catch (Exception $e) { return []; }
     }
 
+    public function getBusinessTimeLines(): array {
+        try {
+            return BusinessTimelineLookUp::orderBy('order', 'asc')->get()->toArray();
+        } catch (Exception $e) { return []; }
+    }
+
     public function getRequirementTypes(): array {
         try {
             return RequirementLookUp::orderBy('id', 'asc')->get()->toArray();
+        } catch (Exception $e) { return []; }
+    }
+
+    public function getBusinessRequirementTypes(): array {
+        try {
+            return BusinessRequirementLookUp::orderBy('id', 'asc')->get()->toArray();
         } catch (Exception $e) { return []; }
     }
 
@@ -71,6 +86,16 @@ class GlobalHelper {
             return 0;
         }
     }
+    public function getBusinessIdViaRefNo(string $ref_no): int {
+        try {
+            
+            return Business::where('application_ref_no', $ref_no)->pluck('id')[0];
+            
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return 0;
+        }
+    }
     
     public function getApplicationViaRefNo(string $ref_no) {
         try {
@@ -85,6 +110,26 @@ class GlobalHelper {
 
             if ($application) {
                 return $application->toArray()[0];
+            }
+            return [];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+
+    public function getBusinessViaRefNo(string $ref_no) {
+        try {
+            $business = Business::where('application_ref_no', $ref_no)
+            ->with('histories')
+            ->with('requirements')
+            ->with('application_type')
+            ->with('industry')
+            ->with('sub_industry')
+            ->get();
+
+            if ($business) {
+                return $business->toArray()[0];
             }
             return [];
         } catch (Exception $e) {
@@ -119,6 +164,34 @@ class GlobalHelper {
                 },$applications->toArray());
                 
                 return $applications;
+            }
+            return [];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+
+    public function getBusinessesViaUserId(int $user_id) {
+        try {
+            $businesses = Business::where('user_id', $user_id)
+            ->with('histories')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            if ($businesses) {
+                $businesses =  array_map(function($business) {
+                    $ordered_histories = [];
+                    if ($business['histories']) {
+                        foreach($business['histories'] as $history) { 
+                            $ordered_histories[$history['timeline_look_up_id']] = $history;
+                        }        
+                        $business['histories'] = $ordered_histories;
+                    }
+                    return $business;
+                },$businesses->toArray());
+                
+                return $businesses;
             }
             return [];
         } catch (Exception $e) {
@@ -215,6 +288,22 @@ class GlobalHelper {
     public function getUserViaAppRefno(string $ref_no) {
         try {
             $application = Applications::where('application_ref_no', $ref_no)
+            ->with('user')
+            ->with('requirements')
+            ->get();
+
+            if ($application) {
+                return $application->toArray()[0];
+            }
+            return [];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+    public function getUserViaBusinessRefno(string $ref_no) {
+        try {
+            $application = Business::where('application_ref_no', $ref_no)
             ->with('user')
             ->with('requirements')
             ->get();

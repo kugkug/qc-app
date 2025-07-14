@@ -138,12 +138,6 @@ $(document).ready(function () {
         });
     }
 
-    if ($("[data-trigger=logout]").length) {
-        $("[data-trigger=logout]").on("click", function () {
-            ajaxRequest("/executor/applicant/logout", {});
-        });
-    }
-
     if ($(".data-table").length) {
         $(".data-table").DataTable({
             paging: true,

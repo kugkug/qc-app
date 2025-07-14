@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    if ($("[data-trigger=apply-health-certificate]").length) {
-        $("[data-trigger=apply-health-certificate]").off();
-        $("[data-trigger=apply-health-certificate]").on("click", function () {
+    if ($("[data-trigger=apply-sanitary-certificate]").length) {
+        $("[data-trigger=apply-sanitary-certificate]").off();
+        $("[data-trigger=apply-sanitary-certificate]").on("click", function () {
             let parentForm = $(this).closest("form");
 
             if (!_checkFormFields(parentForm)) {
@@ -127,7 +127,7 @@ $(document).ready(function () {
             }
 
             ajaxSubmit(
-                "/executor/applicant/upload-requirements/" +
+                "/executor/business/upload-requirements/" +
                     $(this).attr("data-refno"),
                 json_data_form,
                 $(this)

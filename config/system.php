@@ -16,6 +16,7 @@ return [
         'validated_requirements' => 3,
         'created_payment' => 4,
         'validated_payment' => 5,
+        'water_analysis' => 6,
         'seminar' => 6,
         'head_approval' => 7,
         'released' => 8,
@@ -64,7 +65,13 @@ return [
         'approved' => 2,
         'rejected' => 3,
     ],
-    
+
+    'water_analysis_status' => [
+        'for-review' => 1,
+        'approved' => 2,
+        'rejected' => 3,
+    ],
+
     'application_types' => [
         'Health-Certificate' => 'hc',
         'Sanitary-Permit' => 'sp'

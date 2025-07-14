@@ -17,7 +17,7 @@
                 <section class="card rounded-0 shadow-lg">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Individual History
+                            Business History
                         </h3>
     
                         <div class="card-tools">
@@ -35,38 +35,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($applications as $application)
+                                @foreach ($businesses as $business)
                                 
-                                    @if ($application['application_type'] === config('system.application_types')['Sanitary-Permit'])
+                                    
                                         @php
-                                            if ($application['histories']) {
-                                                $last_timeline = $application['histories'][ array_key_last($application['histories']) ];
+                                            if ($business['histories']) {
+                                                $last_timeline = $business['histories'][ array_key_last($business['histories']) ];
                                             } else {
                                                 $last_timeline = [];
                                             }
                                         @endphp
                                         <tr>
                                             <td>
-                                                <a href="/business/processing/application/{{ $application['application_ref_no']}}">
-                                                    {{ $application['application_ref_no']}}
+                                                <a href="/business/processing/application/{{ $business['application_ref_no']}}">
+                                                    {{ $business['application_ref_no']}}
                                                 </a> 
                                             </td>
                                             <td>
-                                                <a href="/business/processing/application/{{ $application['application_ref_no']}}">
-                                                    {{ date("m/d/Y", strtotime($application['created_at'])) }}
+                                                <a href="/business/processing/application/{{ $business['application_ref_no']}}">
+                                                    {{ date("m/d/Y", strtotime($business['created_at'])) }}
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="/business/processing/application/{{ $application['application_ref_no']}}">
+                                                <a href="/business/processing/application/{{ $business['application_ref_no']}}">
                                                     @php
-                                                        echo ($application['application_status']) ? 
-                                                            config('system.application_progress_status')[$application['application_status']] :
+                                                        echo ($business['application_status']) ? 
+                                                            config('system.application_progress_status')[$business['application_status']] :
                                                             "New";
                                                     @endphp
                                                 </a>
                                             </td>
                                         </tr>
-                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -110,9 +109,16 @@
                             <div class="row">
                                 <div class="form-group col-lg-12">
                                     <label for="fname" class="">Business Line <i class="text-red">*</i></label>
-                                    <x-dropdowns xtype='business_lines' />
+                                    <x-dropdowns xtype='business_lines_text' />
                                 </div>
                             </div>
+
+                            {{-- <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label for="fname" class="">Business Line <i class="text-red">*</i></label>
+                                    <x-dropdowns xtype='business_lines' />
+                                </div>
+                            </div> --}}
 
                             {{-- <button class="btn btn-outline-primary btn-flat btn-block">
                                 APPLY FOR SANITARY PERMIT

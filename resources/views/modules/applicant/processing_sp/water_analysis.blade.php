@@ -13,7 +13,7 @@
             <div class="card rounded-0 shadow-lg">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h3 class="card-title">
-                        Payment Details
+                        Water Analysis Result
                     </h3>
                     <div class="card-tools ml-auto">
                         {{-- <a href="{{ asset("$pdf_file") }}" class="btn btn-outline-primary btn-flat" download="">
@@ -22,13 +22,14 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    
-                        Please upload your receipt here.
-                    
-                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Please upload your water analysis result here.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-outline-primary btn-flat btn-upload">Upload Receipt</button>
+                    <button class="btn btn-outline-primary btn-flat btn-upload">Upload Water Analysis Result</button>
                 </div>
             </div>
         </div>
@@ -40,7 +41,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Upload Receipt</h5>
+				<h5 class="modal-title">Upload Water Analysis Result</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -77,4 +78,4 @@
 
 @include('partials.applicant.footer')
 <script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
-<script src="{{ asset('assets/scripts/modules/sanitary/payment-order.js') }}"></script>
+<script src="{{ asset('assets/scripts/modules/sanitary/water-analysis.js') }}"></script>

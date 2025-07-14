@@ -1,8 +1,6 @@
 @include('partials.applicant.processing-header')
 
 <div class="container">
-    {{-- <x-timeline xtitle="{{$module_title}}" xrefno="{{$application['application_ref_no']}}" xname="Application Form" xpath='/applicant'/> --}}
-
     @include('components.timeline')
     <form>
         <div class="row">

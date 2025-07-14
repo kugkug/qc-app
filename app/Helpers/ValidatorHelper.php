@@ -80,6 +80,26 @@ class ValidatorHelper {
                     'application_type' => 'required|string',
                 ];
             break;
+            
+            case 'business_save':
+                return [
+                    'application_ref_no' => 'required|string',
+                    'user_id' => 'required|integer',
+                    'application_type_id' => 'required|integer',
+                    'industry_id' => 'required|integer',
+                    'sub_industry_id' => 'required|integer',
+                    'business_line_text' => 'sometimes|string',
+                    'company_name' => 'sometimes|string',
+                    'company_address' => 'sometimes|string',
+                    'company_owner' => 'sometimes|string',
+                    'mayor_permit_no' => 'sometimes|string',
+                    'total_employees' => 'sometimes|integer',
+                    'total_employees_with_certifiates' => 'sometimes|integer',
+                    'total_employees_without_certificates' => 'sometimes|integer',
+                    'total_employees_with_ppe' => 'sometimes|integer',
+                    'application_status' => 'sometimes|integer',
+                ];
+            break;
 
             case 'application_update':
                 return [
@@ -111,6 +131,20 @@ class ValidatorHelper {
                     'address' => 'sometimes|string|max:250',
                     'company_name' => 'sometimes|string',
                     'company_address' => 'sometimes|string',
+                ];
+            break;
+
+            case 'process_business':
+                return [
+                    'company_name' => 'sometimes|string',
+                    'company_address' => 'sometimes|string',
+                    'company_owner' => 'sometimes|string',
+                    'mayor_permit_no' => 'sometimes|string',
+                    'total_employees' => 'sometimes|integer',
+                    'total_employees_with_certificates' => 'sometimes|integer',
+                    'total_employees_without_certificates' => 'sometimes|integer',
+                    'total_employees_with_ppe' => 'sometimes|integer',
+                    'application_status' => 'sometimes|integer',
                 ];
             break;
 

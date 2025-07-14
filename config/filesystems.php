@@ -71,6 +71,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'upload_water_analysis' => [
+            'driver' => 'local',
+            'root' => public_path()."/water-analysis",
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        
         'upload_complaint' => [
             'driver' => 'local',
             'root' => public_path()."/complaints",

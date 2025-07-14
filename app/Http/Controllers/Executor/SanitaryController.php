@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Log;
 class SanitaryController extends Controller {
 
     public function apply_sanitary_permit(Request $request) {
-        try { return $request->all();
+        try {
+            
             $response = apiHelper()->execute(
             $request->merge(['ApplicationType' => config('system.application_types')['Sanitary-Permit']]), 
                 '/api/business/apply-sanitary-permit', 'POST'
             );
+
 
             if ($response['status'] == false) {
                 return globalHelper()->ajaxErrorResponse('');
@@ -34,20 +36,19 @@ class SanitaryController extends Controller {
 
     public function process_application(Request $request, $application_ref_no) {
         try {
-
-            $response = apiHelper()->execute($request, "/api/applicant/process-application/$application_ref_no", 'POST');
-
+            
+            $response = apiHelper()->execute($request, "/api/business/process-application/$application_ref_no", 'POST');
+            
             if ($response['status'] == false) {
                 return globalHelper()->ajaxErrorResponse('');
             }
-            
 
             globalHelper()->logHistory(
                 globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
                 'Application Form'
             );
             
-            $html_response = "location = '/applicant/processing/upload-requirements/".$application_ref_no."';";
+            $html_response = "location = '/business/processing/upload-requirements/".$application_ref_no."';";
 
             return globalHelper()->ajaxSuccessResponse($html_response);
             
@@ -59,7 +60,8 @@ class SanitaryController extends Controller {
 
     public function upload_requirements(Request $request, $application_ref_no) {
         try {
-            $response = apiHelper()->execute($request, "/api/applicant/upload-requirements/$application_ref_no", 'POST');
+            
+            $response = apiHelper()->execute($request, "/api/business/upload-requirements/$application_ref_no", 'POST');
 
             if ($response['status'] == false) {
                 return globalHelper()->ajaxErrorResponse('');
@@ -75,7 +77,7 @@ class SanitaryController extends Controller {
                 config('system.application_status')['uploaded_requirements']
             );
             
-            $html_response = "location = '/applicant/processing/validate-requirements/".$application_ref_no."';";
+            $html_response = "location = '/business/processing/validate-requirements/".$application_ref_no."';";
 
             return globalHelper()->ajaxSuccessResponse($html_response);
             
@@ -87,18 +89,19 @@ class SanitaryController extends Controller {
 
     public function update_payment_order(Request $request, $application_ref_no) {
         try {
-            $response = apiHelper()->execute($request, "/api/applicant/update-payment-order/$application_ref_no", 'POST');
-
+            
+            $response = apiHelper()->execute($request, "/api/business/update-payment-order/$application_ref_no", 'POST');
+            
             if ($response['status'] == false) {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                globalHelper()->getBusinessIdViaRefNo($application_ref_no), 
                 'Order of Payment'
             );
             
-            $html_response = "location = '/applicant/processing/payment-validation/".$application_ref_no."';";
+            $html_response = "location = '/business/processing/payment-validation/".$application_ref_no."';";
 
             return globalHelper()->ajaxSuccessResponse($html_response);
             
@@ -135,4 +138,27 @@ class SanitaryController extends Controller {
         }
     }
 
+    public function update_water_analysis(Request $request, $application_ref_no) {
+        try {
+            
+            $response = apiHelper()->execute($request, "/api/business/update-water-analysis/$application_ref_no", 'POST');
+            
+            if ($response['status'] == false) {
+                return globalHelper()->ajaxErrorResponse('');
+            }
+
+            globalHelper()->logHistory(
+                globalHelper()->getBusinessIdViaRefNo($application_ref_no), 
+                'Order of Payment'
+            );
+            
+            $html_response = "location = '/business/processing/head-approval/".$application_ref_no."';";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+            
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
 }

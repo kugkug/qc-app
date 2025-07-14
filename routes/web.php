@@ -22,8 +22,8 @@ Route::middleware([
 ])->group(function() {
     Route::group(['prefix' => 'applicant'], function() {
         Route::get("/home", [HealthModulesController::class, 'home'])->name('home')->middleware('auth');
-        Route::get("/health_certificate", [HealthModulesController::class, 'health_certificate'])->name('health_certificate');
-        Route::get("/sanitary_permit", [SanitaryModulesController::class, 'sanitary_permit'])->name('sanitary_permit');   
+        Route::get("/health_certificate", [HealthModulesController::class, 'health_certificate'])->name('applicant_health_certificate');
+        Route::get("/sanitary_permit", [SanitaryModulesController::class, 'sanitary_permit'])->name('applicant_sanitary_permit');   
         Route::get("/laboratory_follow_up", [HealthModulesController::class, 'laboratory_followup'])->name('laboratory_followup');
         Route::get("/analysis_follow_up", [HealthModulesController::class, 'water_analysis_followup'])->name('water_analysis_followup');
 
@@ -43,14 +43,14 @@ Route::middleware([
 
 Route::group(['prefix' => 'business'], function() {
     Route::group(['prefix' => 'processing'], function() {
-        Route::get("/application/{application_ref_no}", [SanitaryModulesController::class, 'processing_application'])->name('processing_application');
-        Route::get("/upload-requirements", [SanitaryModulesController::class, 'processing_upload_requirements'])->name('processing_upload_requirements');
-        Route::get("/validate-requirements", [SanitaryModulesController::class, 'processing_validate_requirements'])->name('processing_validate_requirements');
-        Route::get("/payment-order", [SanitaryModulesController::class, 'processing_payment_order'])->name('processing_payment_order');
-        Route::get("/payment-validation", [SanitaryModulesController::class, 'processing_payment_validation'])->name('processing_payment_validation');
-        Route::get("/seminar-laboratories", [SanitaryModulesController::class, 'processing_seminar_laboratories'])->name('processing_seminar_laboratories');
-        Route::get("/head-approval", [SanitaryModulesController::class, 'processing_head_approval'])->name('processing_head_approval');
-        Route::get("/certificate-issuing", [SanitaryModulesController::class, 'processing_certificate_issuing'])->name('processing_certificate_issuing');
+        Route::get("/application/{application_ref_no}", [SanitaryModulesController::class, 'processing_application'])->name('business_processing_application');
+        Route::get("/upload-requirements/{application_ref_no}", [SanitaryModulesController::class, 'processing_upload_requirements'])->name('business_processing_upload_requirements');
+        Route::get("/validate-requirements/{application_ref_no}", [SanitaryModulesController::class, 'processing_validate_requirements'])->name('business_processing_validate_requirements');
+        Route::get("/payment-order/{application_ref_no}", [SanitaryModulesController::class, 'processing_payment_order'])->name('business_processing_payment_order');
+        Route::get("/payment-validation/{application_ref_no}", [SanitaryModulesController::class, 'processing_payment_validation'])->name('business_processing_payment_validation');
+        Route::get("/water-analysis/{application_ref_no}", [SanitaryModulesController::class, 'processing_water_analysis'])->name('business_processing_water_analysis');
+        Route::get("/head-approval/{application_ref_no}", [SanitaryModulesController::class, 'processing_head_approval'])->name('business_processing_head_approval');
+        Route::get("/certificate-issuing/{application_ref_no}", [SanitaryModulesController::class, 'processing_certificate_issuing'])->name('business_processing_certificate_issuing');
     });
 });
 
@@ -73,19 +73,20 @@ Route::group(['prefix' => 'executor'], function() {
 
         Route::post("/application", [HealthController::class, 'apply_health_certificate'])->name('exec_apply_health_certificate');
         Route::post("/application/{application_ref_no}", [HealthController::class, 'process_application'])->name('exec_process_application');
-        Route::post("/upload-requirements/{application_ref_no}", [HealthController::class, 'upload_requirements'])->name('exec_upload_requirements');
-        Route::post('/update-payment-order/{application_ref_no}', [HealthController::class, 'update_payment_order'])->name('update_payment_order');
-        Route::post('/update-application/{application_ref_no}', [HealthController::class, 'update_application'])->name('update_application');
+        Route::post("/upload-requirements/{application_ref_no}", [HealthController::class, 'upload_requirements'])->name('exec_applicant_upload_requirements');
+        Route::post('/update-payment-order/{application_ref_no}', [HealthController::class, 'update_payment_order'])->name('exec_applicant_update_payment_order');
+        Route::post('/update-application/{application_ref_no}', [HealthController::class, 'update_application'])->name('exec_applicant_update_application');
 
-        Route::post('/submit-complaint', [ApplicantsController::class, 'submit_complaint'])->name('submit_complaint');
+        Route::post('/submit-complaint', [ApplicantsController::class, 'submit_complaint'])->name('exec_applicant_submit_complaint');
     });
 
     Route::group(['prefix' => 'business'], function() {
         Route::post("/application", [SanitaryController::class, 'apply_sanitary_permit'])->name('exec_apply_sanitary_permit');
-        Route::post("/application/{application_ref_no}", [SanitaryController::class, 'process_application'])->name('exec_process_application');
-        Route::post("/upload-requirements/{application_ref_no}", [SanitaryController::class, 'upload_requirements'])->name('exec_upload_requirements');
-        Route::post('/update-payment-order/{application_ref_no}', [SanitaryController::class, 'update_payment_order'])->name('update_payment_order');
-        Route::post('/update-application/{application_ref_no}', [SanitaryController::class, 'update_application'])->name('update_application');
+        Route::post("/application/{application_ref_no}", [SanitaryController::class, 'process_application'])->name('exec_business_process_application');
+        Route::post("/upload-requirements/{application_ref_no}", [SanitaryController::class, 'upload_requirements'])->name('exec_busines_upload_requirements');
+        Route::post('/update-payment-order/{application_ref_no}', [SanitaryController::class, 'update_payment_order'])->name('exec_busines_update_payment_order');
+        Route::post('/update-application/{application_ref_no}', [SanitaryController::class, 'update_application'])->name('exec_busines_update_application');
+        Route::post('/update-water-analysis/{application_ref_no}', [SanitaryController::class, 'update_water_analysis'])->name('exec_busines_update_water_analysis');
     });
     
 });

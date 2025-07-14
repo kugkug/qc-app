@@ -23,6 +23,10 @@ class SentimentHelper {
             'bad', 'terrible', 'awful', 'horrible', 'disgusting', 'disappointing', 'frustrated',
             'angry', 'upset', 'annoyed', 'irritated', 'disgusted', 'outraged', 'furious',
             'slow', 'unhelpful', 'unprofessional', 'inefficient', 'rude', 'incompetent', 'useless',
+            'no', 'not', 'never', 'bad', 'terrible', 'awful', 'horrible', 'disappointed',
+            'unhappy', 'angry', 'frustrated', 'annoyed', 'upset', 'worried', 'concerned',
+            'expensive', 'costly', 'pricey', 'unaffordable', 'cancel', 'refund', 'complaint',
+            'problem', 'issue', 'difficult', 'complicated', 'confusing', 'waste', 'useless',
             // Tagalog negative words
             'masama', 'pangit', 'napakasama', 'napakapangit', 'malungkot', 'galit',
             'nagagalit', 'nainis', 'nairita', 'nayamot', 'nagagalit', 'nagagalit',
@@ -44,10 +48,17 @@ class SentimentHelper {
                 $negativeCount++;
             }
         }
+
+        $total = $positiveCount + $negativeCount;
+        if ($total === 0) {
+            return 'neutral';
+        }
         
-        if ($positiveCount > $negativeCount) {
+        $sentimentScore = ($positiveCount - $negativeCount) / $total;
+        
+        if ($sentimentScore > 0.1) {
             return 'positive';
-        } elseif ($negativeCount > $positiveCount) {
+        } elseif ($sentimentScore < -0.1) {
             return 'negative';
         } else {
             return 'neutral';

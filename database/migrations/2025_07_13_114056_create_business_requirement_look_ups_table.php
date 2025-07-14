@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timeline_look_ups', function (Blueprint $table) {
+        Schema::create('business_requirement_look_ups', function (Blueprint $table) {
             $table->id();
-            $table->string('timeline');
-            $table->smallInteger('order');
-            $table->string('link')->nullable();
+            $table->string('title');
+            $table->string('restriction', 50);
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('timeline_look_ups');
+        Schema::dropIfExists('business_requirement_look_ups');
     }
 };

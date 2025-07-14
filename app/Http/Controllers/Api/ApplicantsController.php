@@ -138,6 +138,11 @@ class ApplicantsController extends Controller {
             $application = Applications::create($validated['validated']);
             DB::commit();
 
+            globalHelper()->logHistory(
+                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                'Application Form'
+            );
+
             return [
                 'status' => true,
                 'response' => $application,

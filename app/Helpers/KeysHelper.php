@@ -52,6 +52,14 @@ class KeysHelper {
         'ComplaintPhoto' => 'complaint_photo',
         'ComplaintDescription' => 'complaint_description',
         'SpecificBarangayStreet' => 'specific_barangay_street',
+
+        'CompanyOwner' => 'company_owner',
+        'MayorPermitNo' => 'mayor_permit_no',
+        'TotalEmployees' => 'total_employees',
+        'TotalEmployeesWithCertificates' => 'total_employees_with_certificates',
+        'TotalEmployeesWithoutCertificates' => 'total_employees_without_certificates',
+        'TotalEmployeesWithPPE' => 'total_employees_with_ppe',
+        'BusinessLineText' => 'business_line_text',
     ];
     
     public function getKey(string $key_index): string {

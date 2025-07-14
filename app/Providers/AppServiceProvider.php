@@ -19,13 +19,17 @@ class AppServiceProvider extends ServiceProvider
         $system_config = config('system');
         $dropdowns = dropDownHelper()->getAllDropDowns();
         $timelines = globalHelper()->getTimeLines();
+        $business_timelines = globalHelper()->getBusinessTimeLines();
         $requirement_types = globalHelper()->getRequirementTypes();
+        $business_requirement_types = globalHelper()->getBusinessRequirementTypes();
         
         view()->composer('*', function($view) use (
             $system_config,
             $dropdowns,
             $timelines,
-            $requirement_types
+            $business_timelines,
+            $requirement_types,
+            $business_requirement_types
         ) {
             $view->with([
                 'app_name' => $system_config['app_name'],
@@ -34,8 +38,10 @@ class AppServiceProvider extends ServiceProvider
 
                 'global_dropdowns' => $dropdowns,
                 'global_timelines' => $timelines,
+                'global_business_timelines' => $business_timelines,
                 'global_requirement_types' => $requirement_types,
+                'global_business_requirement_types' => $business_requirement_types,
             ]);
         });
-    }
+}
 }

@@ -5,13 +5,14 @@ namespace App\Helpers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 
 class ApiHelper {
     
     public function execute(Request $request, string $url, string $request_type): array {
         $api_call = $request->create($url, $request_type);
         $response = Route::dispatch($api_call);
-        
+        Log::channel('info')->info(json_encode([$response->getContent(), $response->getStatusCode()]));
         return json_decode($response->getContent(), true);
     }
 

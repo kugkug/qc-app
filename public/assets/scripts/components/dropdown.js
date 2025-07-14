@@ -27,5 +27,9 @@ $(document).ready(function () {
                 ""
             );
         });
+
+        if ($("[data-key=BusinessLineText]").length) {
+            $("[data-key=BusinessLineText]").attr("disabled", false);
+        }
     }
 });

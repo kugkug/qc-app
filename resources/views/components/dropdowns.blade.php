@@ -62,6 +62,10 @@
         @endforeach --}}
     </select>
 
+@elseif($xtype == 'business_lines_text')
+
+<input type="text" class="form-control rounded-0" data-key="BusinessLineText" disabled="" data="req">
+
     
 @elseif($xtype == 'genders')
     @php

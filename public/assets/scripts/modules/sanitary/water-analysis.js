@@ -69,23 +69,13 @@ $(document).ready(function () {
 
         if (receipt_file) {
             let form_data = new FormData();
-            form_data.append("RecieptPhoto", receipt_file);
+            form_data.append("WaterAnalysisResultPhoto", receipt_file);
             ajaxSubmit(
-                "/executor/business/update-payment-order/" +
+                "/executor/business/update-water-analysis/" +
                     $(this).attr("data-ref-no"),
                 form_data,
                 $(this)
             );
         }
-        // if (fileLength > 0) {
-
-        //     for (let x = 0; x < fileLength; x++) {
-        //         form_data.append("labels[]", $("#label_" + x).val());
-        //         form_data.append("files[]", files[x]);
-        //     }
-
-        // } else {
-        //     _systemAlert("error", "No files have been selected!");
-        // }
     });
 });

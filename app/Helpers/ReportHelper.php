@@ -53,4 +53,23 @@ class ReportHelper {
 
         return "";
     }
+
+    public function generateSanitaryPermit($ref_no): mixed {
+        $application = globalHelper()->getUserViaBusinessRefno($ref_no);
+        
+        if ($application) {
+            $filename = "pdf/Sanitary-Permit-$ref_no.pdf";
+            
+            $this->data['application'] = $application;
+            $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
+            
+            Pdf::view('reports.pdf.sanitary_permit', $this->data)            
+            ->format(Format::A4)
+            ->save("$filename");
+
+            return $filename;
+        }
+
+        return "";
+    }
 }

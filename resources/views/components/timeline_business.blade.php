@@ -4,12 +4,10 @@
 <div class="display-horizontal">
     <div id="crumbs-container">
         @php
-            if ($xpath == '/business') {
-                $global_timelines = array_filter($global_timelines, fn($tl) => $tl['timeline'] !== 'HIV Seminar & Laboratories');
-            }
+            
             $cntr = 1;
-            $timeline_length = sizeof($global_timelines);
-            $application_status = $application['application_status'];
+            $timeline_length = sizeof($global_business_timelines);
+            $application_status = $business['application_status'];
             
 
             if ($histories) {
@@ -22,7 +20,7 @@
             
         @endphp
         
-        @foreach ($global_timelines as $timeline)
+        @foreach ($global_business_timelines as $timeline)
             @php
 
                 $font_weight_bold = ($timeline['timeline'] == $xname) ? "font-weight-bold" : "";
@@ -62,12 +60,12 @@
                     $link = $xpath.$timeline['link']."/".$xrefno;
                 }
 
-                if ($last_timeline_status != $application_status) {
-                    if ($application_status == $timeline['id']) {
-                        $class = "requiresupdate";
-                        $status = "Requires Update";
-                    }
-                }
+                // if ($last_timeline_status != $application_status) {
+                //     if ($application_status == $timeline['id']) {
+                //         $class = "requiresupdate";
+                //         $status = "Requires Update";
+                //     }
+                // }
                 //     $class = "requiresupdate";
                 //     $status = "Requires Update";
                 //     $date = date('m/d/Y');
