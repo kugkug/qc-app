@@ -76,6 +76,14 @@ class GlobalHelper {
         }
     }
 
+    public function updateBusinessStatusViaRefNo(string $ref_no, int $status): void {
+        try {
+            Business::where('application_ref_no', $ref_no)->update(['application_status' => $status]);
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+        }
+    }
+    
     public function getApplicationIdViaRefNo(string $ref_no): int {
         try {
             
@@ -174,6 +182,7 @@ class GlobalHelper {
 
     public function getBusinessesViaUserId(int $user_id) {
         try {
+
             $businesses = Business::where('user_id', $user_id)
             ->with('histories')
             ->orderBy('created_at', 'desc')
@@ -200,21 +209,29 @@ class GlobalHelper {
         }
     }
 
-    public function logHistory(int $application_id, string $timeline): void {
+    public function logHistory(string $application_ref_no, string $timeline): void {
         try {
-            History::create([
-                'application_id' => $application_id,
-                'timeline_look_up_id' => $this->getTimelineIdViaName($timeline),
-            ]);
+            if ($timeline == 'Water Analysis') {
+                History::create([
+                    'application_ref_no' => $application_ref_no,
+                    'timeline_look_up_id' => $this->getBusinessTimelineIdViaName($timeline),
+                ]);
+            } else {
+                History::create([
+                    'application_ref_no' => $application_ref_no,
+                    'timeline_look_up_id' => $this->getTimelineIdViaName($timeline),
+                ]);
+            }
+            
         } catch (Exception $e) {
             Log::channel('info')->info(json_encode($e->getMessage()));
         }
     }
 
-    public function getHistory(int $application_id): array {
+    public function getHistory(string $application_ref_no): array {
         try {
             $app_histories = [];
-            $histories = History::where('application_id', $application_id)
+            $histories = History::where('application_ref_no', $application_ref_no)
             ->orderBy('timeline_look_up_id', 'asc')
             ->get();
             
@@ -239,6 +256,16 @@ class GlobalHelper {
             return 0;
         }
     }
+
+    public function getBusinessTimelineIdViaName(string $timeline): int {
+        try {
+            return BusinessTimelineLookUp::where('timeline', $timeline)->pluck('id')[0];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return 0;
+        }
+    }
+
 
     public function getApplicationData(
         string $ref_no,

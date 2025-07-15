@@ -67,7 +67,7 @@ class HealthModulesController extends Controller {
         if ($application) {
             $this->data['page_name'] = 'Application Form';
             $this->data['application'] = $application;
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -91,7 +91,7 @@ class HealthModulesController extends Controller {
         if ($application) {
             $this->data['page_name'] = 'Upload Requirements';
             $this->data['application'] = $application;
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -117,7 +117,7 @@ class HealthModulesController extends Controller {
         if ($application) {
             $this->data['page_name'] = 'Requirements Validation';
             $this->data['application'] = $application;
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -143,7 +143,7 @@ class HealthModulesController extends Controller {
             $this->data['application'] = $application;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
             
@@ -155,6 +155,7 @@ class HealthModulesController extends Controller {
                     '/applicant'
                 ),
             );
+            
             return view("modules.applicant.processing_hc.payment_order", $this->data);
         }
         return redirect("/applicant/home");
@@ -170,7 +171,7 @@ class HealthModulesController extends Controller {
             $this->data['application'] = $application;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
             
@@ -198,7 +199,7 @@ class HealthModulesController extends Controller {
             $this->data['application'] = $application;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -221,7 +222,7 @@ class HealthModulesController extends Controller {
             $this->data['application'] = $application;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
             
@@ -250,7 +251,7 @@ class HealthModulesController extends Controller {
             $this->data['application'] = $application;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($application['id']);
+            $this->data['histories'] = globalHelper()->getHistory($application['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generateHealthCardId($ref_no);
             
@@ -266,5 +267,13 @@ class HealthModulesController extends Controller {
         }
 
         return redirect("/applicant/home");
+    }
+
+    public function auth_about_us() {
+        return view("partials.applicant.about_us")->with(['page_name' => "About Us"]);
+    }
+
+    public function auth_contact_us() {
+        return view("partials.applicant.contact_us")->with(['page_name' => "Contact Us"]);
     }
 }

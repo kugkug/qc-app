@@ -25,7 +25,7 @@
                         <td>Mon, 21 Oct 2024</td>
                         <td>Sanitray Permit Approved</td>
                         <td>
-                            <button class="btn btn-outline-info btn-flat btn-block btn-preview btn-preview-hid" >VIEW DIGITAL HEALTH CARD</button>
+                            <button class="btn btn-outline-info btn-flat btn-block btn-preview btn-preview-hid" >VIEW DIGITAL SANITARY PERMIT</button>
                         </td>
                     </tr>
                 </tbody>

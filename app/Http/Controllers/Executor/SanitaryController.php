@@ -13,7 +13,7 @@ class SanitaryController extends Controller {
         try {
             
             $response = apiHelper()->execute(
-            $request->merge(['ApplicationType' => config('system.application_types')['Sanitary-Permit']]), 
+                $request->merge(['ApplicationType' => config('system.application_types')['Sanitary-Permit']]), 
                 '/api/business/apply-sanitary-permit', 'POST'
             );
 
@@ -44,7 +44,7 @@ class SanitaryController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Application Form'
             );
             
@@ -68,11 +68,11 @@ class SanitaryController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Upload Requirements'
             );
 
-            globalHelper()->updateApplicationStatusViaRefNo(
+            globalHelper()->updateBusinessStatusViaRefNo(
                 $application_ref_no, 
                 config('system.application_status')['uploaded_requirements']
             );
@@ -97,8 +97,13 @@ class SanitaryController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getBusinessIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Order of Payment'
+            );
+
+            globalHelper()->updateBusinessStatusViaRefNo(
+                $application_ref_no, 
+                config('system.application_status')['created_payment']
             );
             
             $html_response = "location = '/business/processing/payment-validation/".$application_ref_no."';";
@@ -123,10 +128,10 @@ class SanitaryController extends Controller {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
-            globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
-                'HIV Seminar & Laboratories'
-            );
+            // globalHelper()->logHistory(
+            //     $application_ref_no, 
+            //     'HIV Seminar & Laboratories'
+            // );
             
             $html_response = "location = '/applicant/processing/head-approval/".$application_ref_no."';";
 
@@ -147,9 +152,14 @@ class SanitaryController extends Controller {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
+            globalHelper()->updateBusinessStatusViaRefNo(
+                $application_ref_no, 
+                config('system.application_status')['water_analysis']
+            );
+
             globalHelper()->logHistory(
-                globalHelper()->getBusinessIdViaRefNo($application_ref_no), 
-                'Order of Payment'
+                $application_ref_no, 
+                'Water Analysis'
             );
             
             $html_response = "location = '/business/processing/head-approval/".$application_ref_no."';";

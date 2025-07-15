@@ -139,7 +139,7 @@ class ApplicantsController extends Controller {
             DB::commit();
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Application Form'
             );
 

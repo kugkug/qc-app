@@ -26,7 +26,8 @@ Route::middleware([
         Route::get("/sanitary_permit", [SanitaryModulesController::class, 'sanitary_permit'])->name('applicant_sanitary_permit');   
         Route::get("/laboratory_follow_up", [HealthModulesController::class, 'laboratory_followup'])->name('laboratory_followup');
         Route::get("/analysis_follow_up", [HealthModulesController::class, 'water_analysis_followup'])->name('water_analysis_followup');
-
+        Route::get("/about-us", [HealthModulesController::class, 'auth_about_us'])->name('applicant_about_us');
+        Route::get("/contact-us", [HealthModulesController::class, 'auth_contact_us'])->name('applicant_contact_us');
 
         Route::group(['prefix' => 'processing'], function() {
             Route::get("/application/{application_ref_no}", [HealthModulesController::class, 'processing_application'])->name('processing_application');

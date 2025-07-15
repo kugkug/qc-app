@@ -24,7 +24,7 @@
         
         @foreach ($global_timelines as $timeline)
             @php
-
+            
                 $font_weight_bold = ($timeline['timeline'] == $xname) ? "font-weight-bold" : "";
 
                 $class = "";
@@ -62,12 +62,12 @@
                     $link = $xpath.$timeline['link']."/".$xrefno;
                 }
 
-                if ($last_timeline_status != $application_status) {
-                    if ($application_status == $timeline['id']) {
-                        $class = "requiresupdate";
-                        $status = "Requires Update";
-                    }
-                }
+                // if ($last_timeline_status != $application_status) {
+                //     if ($application_status == $timeline['id']) {
+                //         $class = "requiresupdate";
+                //         $status = "Requires Update";
+                //     }
+                // }
                 //     $class = "requiresupdate";
                 //     $status = "Requires Update";
                 //     $date = date('m/d/Y');

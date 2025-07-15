@@ -39,7 +39,7 @@ class BusinessController extends Controller
             $application = Business::create($validated['validated']);
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Application Form'
             );
 

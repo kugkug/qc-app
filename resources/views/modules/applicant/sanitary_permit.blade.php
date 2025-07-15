@@ -35,37 +35,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($businesses as $business)
-                                
-                                    
-                                        @php
-                                            if ($business['histories']) {
-                                                $last_timeline = $business['histories'][ array_key_last($business['histories']) ];
-                                            } else {
-                                                $last_timeline = [];
-                                            }
-                                        @endphp
-                                        <tr>
-                                            <td>
-                                                <a href="/business/processing/application/{{ $business['application_ref_no']}}">
-                                                    {{ $business['application_ref_no']}}
-                                                </a> 
-                                            </td>
-                                            <td>
-                                                <a href="/business/processing/application/{{ $business['application_ref_no']}}">
-                                                    {{ date("m/d/Y", strtotime($business['created_at'])) }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="/business/processing/application/{{ $business['application_ref_no']}}">
-                                                    @php
-                                                        echo ($business['application_status']) ? 
-                                                            config('system.application_progress_status')[$business['application_status']] :
-                                                            "New";
-                                                    @endphp
-                                                </a>
-                                            </td>
-                                        </tr>
+                                @foreach ($businesses as $business)                                    
+                                    @php
+                                        if ($business['histories']) {
+                                            $last_timeline = $business['histories'][ array_key_last($business['histories']) ];
+                                        } else {
+                                            $last_timeline = [];
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <td>
+                                            <a href="/business/processing/application/{{ $business['application_ref_no']}}">
+                                                {{ $business['application_ref_no']}}
+                                            </a> 
+                                        </td>
+                                        <td>
+                                            <a href="/business/processing/application/{{ $business['application_ref_no']}}">
+                                                {{ date("m/d/Y", strtotime($business['created_at'])) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/business/processing/application/{{ $business['application_ref_no']}}">
+                                                @php
+                                                    echo ($business['application_status']) ? 
+                                                        config('system.application_progress_status')[$business['application_status']] :
+                                                        "New";
+                                                @endphp
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

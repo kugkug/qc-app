@@ -33,7 +33,7 @@ class SanitaryModulesController extends Controller {
         if ($business) {    
             $this->data['page_name'] = 'Application Form';
             $this->data['business'] = $business;
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -57,7 +57,7 @@ class SanitaryModulesController extends Controller {
         if ($business) {    
             $this->data['page_name'] = 'Upload Requirements';
             $this->data['business'] = $business;
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -81,7 +81,7 @@ class SanitaryModulesController extends Controller {
         if ($business) {
             $this->data['page_name'] = 'Requirements Validation';
             $this->data['business'] = $business;
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -107,7 +107,7 @@ class SanitaryModulesController extends Controller {
             $this->data['business'] = $business;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no); 
             
@@ -134,7 +134,7 @@ class SanitaryModulesController extends Controller {
             $this->data['business'] = $business;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
             
@@ -162,7 +162,7 @@ class SanitaryModulesController extends Controller {
             $this->data['business'] = $business;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
             
             $this->data = array_merge(
                 $this->data, 
@@ -185,7 +185,7 @@ class SanitaryModulesController extends Controller {
             $this->data['business'] = $business;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generatePaymentOrderPdf($ref_no);
             
@@ -214,7 +214,7 @@ class SanitaryModulesController extends Controller {
             $this->data['business'] = $business;
             $this->data['ref_no'] = $ref_no;
             $this->data['payment_details'] = globalHelper()->getPaymentDetails($ref_no);
-            $this->data['histories'] = globalHelper()->getHistory($business['id']);
+            $this->data['histories'] = globalHelper()->getHistory($business['application_ref_no']);
 
             $this->data['pdf_file'] = reportHelper()->generateSanitaryPermit($ref_no);
             

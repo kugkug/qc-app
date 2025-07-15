@@ -42,7 +42,7 @@ class HealthController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Application Form'
             );
             
@@ -65,13 +65,11 @@ class HealthController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Upload Requirements'
             );
 
-            $histories = globalHelper()->getHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no)
-            );
+            $histories = globalHelper()->getHistory($application_ref_no);
 
             if ($histories) {
                 $last_timeline = $histories[ array_key_last($histories) ];
@@ -91,7 +89,7 @@ class HealthController extends Controller {
             return globalHelper()->ajaxSuccessResponse($html_response);
             
         } catch (Exception $e) {
-            Log::channel('info')->info(json_encode($e->getMessage()));
+            Log::channel('info')->info(json_encode($e->getTrace()));
             return globalHelper()->ajaxErrorResponse('');
         }
     }
@@ -105,8 +103,13 @@ class HealthController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'Order of Payment'
+            );
+
+            globalHelper()->updateApplicationStatusViaRefNo(
+                $application_ref_no, 
+                config('system.application_status')['created_payment']
             );
             
             $html_response = "location = '/applicant/processing/payment-validation/".$application_ref_no."';";
@@ -132,8 +135,13 @@ class HealthController extends Controller {
             }
 
             globalHelper()->logHistory(
-                globalHelper()->getApplicationIdViaRefNo($application_ref_no), 
+                $application_ref_no, 
                 'HIV Seminar & Laboratories'
+            );
+
+            globalHelper()->updateApplicationStatusViaRefNo(
+                $application_ref_no, 
+                config('system.application_status')['seminar']
             );
             
             $html_response = "location = '/applicant/processing/head-approval/".$application_ref_no."';";

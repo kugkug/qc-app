@@ -37,6 +37,8 @@ return [
         99 => 'Completed',
     ],
 
+    
+
     'requirement_status' => [
         'new' => 1,
         'completed' => 2,

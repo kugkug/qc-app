@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-4" id="div-front-id">
-        <img src="{{ public_path('assets/images/system/people_corner_icon.jpg') }}" alt="" >
+        {{-- <img src="{{ public_path('assets/images/system/people_corner_icon.jpg') }}" alt="" > --}}
         <div class="" id="div-id-data">
             <div class="row mt-1">
                 <div class="col-md-2">NAME: </div>
