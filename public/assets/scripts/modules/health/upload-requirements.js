@@ -106,6 +106,8 @@ $(document).ready(function () {
     if ($("[data-trigger=upload-requirements]").length) {
         $("[data-trigger=upload-requirements]").off();
         $("[data-trigger=upload-requirements]").on("click", function () {
+            let require_update = $(".requiresupdate").length;
+
             let parentForm = $(this).closest("form");
 
             let json_data_form = new FormData();
@@ -125,6 +127,10 @@ $(document).ready(function () {
                 json_data_form.append("Images[]", image);
                 json_data_form.append("AcquiredDates[]", date_acquired);
             }
+            json_data_form.append(
+                "IsUpdateRequired",
+                require_update > 0 ? 1 : 0
+            );
 
             ajaxSubmit(
                 "/executor/applicant/upload-requirements/" +

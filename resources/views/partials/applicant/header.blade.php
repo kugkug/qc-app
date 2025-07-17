@@ -96,31 +96,7 @@
   
         <!-- Right navbar links -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-            <li class="nav-item dropdown">
-              	<a class="nav-link" data-toggle="dropdown" href="#">
-                	<i class="far fa-bell"></i>
-                	<span class="badge badge-warning navbar-badge">15</span>
-              	</a>
-				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-					<span class="dropdown-header">15 Notifications</span>
-					<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-						<i class="fas fa-envelope mr-2"></i> 4 new messages
-							<span class="float-right text-muted text-sm">3 mins</span>
-						</a>
-					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item">
-						<i class="fas fa-users mr-2"></i> 8 friend requests
-						<span class="float-right text-muted text-sm">12 hours</span>
-					</a>
-					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item">
-						<i class="fas fa-file mr-2"></i> 3 new reports
-						<span class="float-right text-muted text-sm">2 days</span>
-					</a>
-              		<div class="dropdown-divider"></div>
-            	</div>
-          	</li>
+
 
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -129,14 +105,14 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <span class="dropdown-header">My Account</span>
               
-              <div class="dropdown-divider"></div>
+              {{-- <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item">
                 <i class="fas fa-user-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item">
                 <i class="fas fa-user-shield"></i> Change Password
-              </a>
+              </a> --}}
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item" data-trigger="logout">
                 <i class="fas fa-sign-out-alt"></i> Log out                

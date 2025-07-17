@@ -68,9 +68,10 @@ class SanitaryController extends Controller {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
+            $status = $request->IsUpdateRequired == 1 ? 'Water Analysis' : 'Upload Requirements';
             globalHelper()->logHistory(
                 $application_ref_no, 
-                'Upload Requirements'
+                $status
             );
 
             globalHelper()->updateBusinessStatusViaRefNo(

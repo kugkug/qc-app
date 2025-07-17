@@ -49,7 +49,7 @@
 
                     <div class="form-group col-lg-3">
                         <label for="fname" class="">Contact <i class="text-red">*</i></label>
-                        <input type="text" class="form-control rounded-0" placeholder="09XXXXXXXXX" data="req" data-key="Contact">
+                        <input type="text" class="form-control rounded-0" placeholder="09XXXXXXXXX" data="req" data-key="Contact" maxlength="12">
                     </div>
 
                     <div class="form-group col-lg-4">

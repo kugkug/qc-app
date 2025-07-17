@@ -19,7 +19,8 @@
             }
 
             $last_timeline_status = $last_timeline['timeline_look_up_id'] ?? 1;
-            
+
+            // print_r(['application_status' => $application_status, 'last_timeline_status' => $last_timeline_status]);
         @endphp
         
         @foreach ($global_timelines as $timeline)
@@ -62,12 +63,12 @@
                     $link = $xpath.$timeline['link']."/".$xrefno;
                 }
 
-                // if ($last_timeline_status != $application_status) {
-                //     if ($application_status == $timeline['id']) {
-                //         $class = "requiresupdate";
-                //         $status = "Requires Update";
-                //     }
-                // }
+                if ($last_timeline_status != $application_status) {
+                    if ($application_status == $timeline['id']) {
+                        $class = "requiresupdate";
+                        $status = "Requires Update";
+                    }
+                }
                 //     $class = "requiresupdate";
                 //     $status = "Requires Update";
                 //     $date = date('m/d/Y');
@@ -98,6 +99,7 @@
 
     </div>
 </div>
+
 <div class="row mb-2 d-lg-none d-xl-none">
     <div class="col-md-12">
         <button 

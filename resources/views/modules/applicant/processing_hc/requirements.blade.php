@@ -10,7 +10,7 @@
                 <div class="card rounded-0 shadow-lg" >
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h3 class="card-title">
-                            Application Details
+                            Application Details 
                         </h3>
                         <div class="card-tools  ml-auto">
                             <button class="btn btn-outline-danger btn-flat" onclick="cancelApplication(event)">
