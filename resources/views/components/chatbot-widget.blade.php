@@ -17,7 +17,7 @@
         
         <div class="chatbot-messages" id="widgetChatMessages">
             <div class="welcome-message">
-                <i class="fas fa-comments"></i> Hi! How can I help you today?
+                <i class="fas fa-comments"></i> Type in your questions or a ticket reference number to check for status.
             </div>
         </div>
         
