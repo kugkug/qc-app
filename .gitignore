@@ -21,3 +21,61 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Additional Laravel-specific ignores
+/bootstrap/cache/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+/storage/app/public/*
+/storage/app/private/*
+
+# Composer
+composer.phar
+composer.lock
+
+# NPM
+package-lock.json
+yarn.lock
+
+# IDE and Editor files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Environment files
+.env.local
+.env.development
+.env.testing
+.env.staging
+
+# Application specific
+/public/uploads/*
+/public/exports/*
+/public/temp/*
