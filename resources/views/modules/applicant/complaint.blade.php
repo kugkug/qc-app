@@ -36,7 +36,7 @@
                                         <a href="/complaint/processing/complaint/{{ $complaint['complaint_ref_no']}}">
                                             @php
                                                 echo ($complaint['status']) ? 
-                                                    config('system.application_progress_status')[$complaint['status']] :
+                                                    config('system.complaint_progress_status')[$complaint['status']] :
                                                     "New";
                                             @endphp
                                         </a>
