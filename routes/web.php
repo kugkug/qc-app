@@ -69,7 +69,7 @@ Route::group(['prefix' => 'complaint'], function() {
         Route::get("/recommendation-first/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_recommendation_first'])->name('processing_recommendation_first');
         Route::get("/recommendation-second/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_recommendation_second'])->name('processing_recommendation_second');
         Route::get("/recommendation-third/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_recommendation_third'])->name('processing_recommendation_third');
-        Route::get("/head-approval/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_head_approval'])->name('processing_head_approval');
+        Route::get("/head-approval/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_head_approval'])->name('complaint_processing_head_approval');
         Route::get("/resolved/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_resolved'])->name('processing_resolved');
     });
 });
