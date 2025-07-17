@@ -178,12 +178,14 @@ class ValidatorHelper {
 
             case 'submit_complaint':
                 return [
+                    'complaint_ref_no' => 'required|string',
                     'user_id' => 'required|integer',
                     'business_name' => 'required|string',
                     'business_address' => 'required|string',
                     'complaint_description' => 'required|string',
                     'specific_barangay_street' => 'required|string',
                     'sentiments' => 'sometimes|string',
+                    'status' => 'sometimes|integer',
                 ];
         }
     }

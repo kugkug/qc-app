@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>QC App - Database Structure Overview</title>
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                margin: 20px;
+                background-color: #f5f5f5;
+                line-height: 1.6;
+            }
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            .legend {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+                border-left: 4px solid #007bff;
+            }
+            .legend h3 {
+                margin-top: 0;
+                color: #007bff;
+            }
+            .legend ul {
+                list-style-type: none;
+                padding-left: 0;
+            }
+            .legend li {
+                margin-bottom: 5px;
+                padding-left: 20px;
+                position: relative;
+            }
+            .legend li:before {
+                content: "•";
+                color: #007bff;
+                font-weight: bold;
+                position: absolute;
+                left: 0;
+            }
+            .tables-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            .table-card {
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                padding: 15px;
+                background-color: white;
+            }
+            .table-card.main {
+                border-color: #007bff;
+                background-color: #e3f2fd;
+            }
+            .table-card.lookup {
+                border-color: #28a745;
+                background-color: #e8f5e8;
+            }
+            .table-card.system {
+                border-color: #6c757d;
+                background-color: #f8f9fa;
+            }
+            .table-name {
+                font-weight: bold;
+                font-size: 18px;
+                margin-bottom: 10px;
+                color: #333;
+            }
+            .table-fields {
+                font-family: "Courier New", monospace;
+                font-size: 12px;
+                background-color: rgba(0, 0, 0, 0.05);
+                padding: 10px;
+                border-radius: 4px;
+                margin-top: 10px;
+            }
+            .field {
+                margin-bottom: 3px;
+            }
+            .field.pk {
+                font-weight: bold;
+                color: #d32f2f;
+            }
+            .field.fk {
+                font-style: italic;
+                color: #1976d2;
+            }
+            .field.uk {
+                text-decoration: underline;
+                color: #388e3c;
+            }
+            .relationships {
+                margin-top: 30px;
+                padding: 20px;
+                background-color: #f8f9fa;
+                border-radius: 8px;
+            }
+            .relationships h2 {
+                color: #333;
+                margin-top: 0;
+            }
+            .relationship-group {
+                margin-bottom: 20px;
+            }
+            .relationship-group h3 {
+                color: #007bff;
+                margin-bottom: 10px;
+            }
+            .relationship-list {
+                list-style-type: none;
+                padding-left: 0;
+            }
+            .relationship-list li {
+                margin-bottom: 5px;
+                padding: 5px 10px;
+                background-color: white;
+                border-radius: 4px;
+                border-left: 3px solid #007bff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>QC App - Database Structure Overview</h1>
+
+            <div class="legend">
+                <h3>Legend</h3>
+                <ul>
+                    <li>
+                        <strong>Primary Keys:</strong>
+                        <span class="field pk">Bold Red</span>
+                    </li>
+                    <li>
+                        <strong>Foreign Keys:</strong>
+                        <span class="field fk">Italic Blue</span>
+                    </li>
+                    <li>
+                        <strong>Unique Keys:</strong>
+                        <span class="field uk">Underlined Green</span>
+                    </li>
+                    <li>
+                        <strong>Main Tables:</strong> Blue border (Core
+                        application tables)
+                    </li>
+                    <li>
+                        <strong>Lookup Tables:</strong> Green border (Reference
+                        data)
+                    </li>
+                    <li>
+                        <strong>System Tables:</strong> Gray border (Laravel
+                        system tables)
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tables-grid">
+                <!-- Main Tables -->
+                <div class="table-card main">
+                    <div class="table-name">users</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">firstname (string)</div>
+                        <div class="field">middlename (string)</div>
+                        <div class="field">lastname (string)</div>
+                        <div class="field">suffixname (string)</div>
+                        <div class="field">birthdate (string)</div>
+                        <div class="field fk">civil_status_id (bigint, FK)</div>
+                        <div class="field">contact (string)</div>
+                        <div class="field uk">email (string, UK)</div>
+                        <div class="field">occupation (string)</div>
+                        <div class="field fk">barangay_id (bigint, FK)</div>
+                        <div class="field">street (string)</div>
+                        <div class="field">address (string)</div>
+                        <div class="field">password (string)</div>
+                        <div class="field">nationality (string)</div>
+                        <div class="field">yellow_card (string)</div>
+                        <div class="field">user_type (string)</div>
+                        <div class="field">attempts (bigint)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                        <div class="field">deleted_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card main">
+                    <div class="table-name">applications</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field uk">
+                            application_ref_no (string, UK)
+                        </div>
+                        <div class="field fk">user_id (bigint, FK)</div>
+                        <div class="field fk">
+                            classification_id (bigint, FK)
+                        </div>
+                        <div class="field fk">
+                            application_type_id (bigint, FK)
+                        </div>
+                        <div class="field fk">industry_id (bigint, FK)</div>
+                        <div class="field fk">sub_industry_id (bigint, FK)</div>
+                        <div class="field fk">
+                            business_line_id (bigint, FK)
+                        </div>
+                        <div class="field">company_name (string)</div>
+                        <div class="field">company_address (string)</div>
+                        <div class="field">application_status (smallint)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                        <div class="field">deleted_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card main">
+                    <div class="table-name">businesses</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field uk">
+                            application_ref_no (string, UK)
+                        </div>
+                        <div class="field fk">user_id (bigint, FK)</div>
+                        <div class="field fk">
+                            classification_id (bigint, FK)
+                        </div>
+                        <div class="field fk">
+                            application_type_id (bigint, FK)
+                        </div>
+                        <div class="field fk">industry_id (bigint, FK)</div>
+                        <div class="field fk">sub_industry_id (bigint, FK)</div>
+                        <div class="field">business_line_id (string)</div>
+                        <div class="field">company_name (string)</div>
+                        <div class="field">company_address (string)</div>
+                        <div class="field">company_owner (string)</div>
+                        <div class="field">mayor_permit_no (string)</div>
+                        <div class="field">total_employees (integer)</div>
+                        <div class="field">
+                            total_employees_with_certifiates (integer)
+                        </div>
+                        <div class="field">
+                            total_employees_without_certificates (integer)
+                        </div>
+                        <div class="field">
+                            total_employees_with_ppe (integer)
+                        </div>
+                        <div class="field">application_status (smallint)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                        <div class="field">deleted_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card main">
+                    <div class="table-name">complaints</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field fk">user_id (bigint, FK)</div>
+                        <div class="field">business_name (string)</div>
+                        <div class="field">business_address (string)</div>
+                        <div class="field">
+                            specific_barangay_street (string)
+                        </div>
+                        <div class="field">complaint_photo (string)</div>
+                        <div class="field">complaint_description (text)</div>
+                        <div class="field">status (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card main">
+                    <div class="table-name">requirements</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field fk">
+                            application_ref_no (string, FK)
+                        </div>
+                        <div class="field">requirement (string)</div>
+                        <div class="field">photo (string)</div>
+                        <div class="field">status (string)</div>
+                        <div class="field">notes (string)</div>
+                        <div class="field fk">checked_by (bigint, FK)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                        <div class="field">deleted_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card main">
+                    <div class="table-name">water_analyses</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">application_ref_no (string)</div>
+                        <div class="field">water_analysis_result (string)</div>
+                        <div class="field">
+                            water_analysis_result_photo (string)
+                        </div>
+                        <div class="field">status (bigint)</div>
+                        <div class="field">created_by (string)</div>
+                        <div class="field">checked_by (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                        <div class="field">deleted_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <!-- Lookup Tables -->
+                <div class="table-card lookup">
+                    <div class="table-name">civilstatus_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">civil_status (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card lookup">
+                    <div class="table-name">baranggay_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">baranggay (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card lookup">
+                    <div class="table-name">classification_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">classification (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card lookup">
+                    <div class="table-name">application_type_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">application (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card lookup">
+                    <div class="table-name">industry_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">industry (string)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card lookup">
+                    <div class="table-name">sub_industry_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">sub_industry (string)</div>
+                        <div class="field fk">industry_id (bigint, FK)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card lookup">
+                    <div class="table-name">business_line_look_ups</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">business_line (string)</div>
+                        <div class="field fk">sub_industry_id (bigint, FK)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <!-- System Tables -->
+                <div class="table-card system">
+                    <div class="table-name">sessions</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (string, PK)</div>
+                        <div class="field fk">user_id (bigint, FK)</div>
+                        <div class="field">ip_address (string)</div>
+                        <div class="field">user_agent (text)</div>
+                        <div class="field">payload (longtext)</div>
+                        <div class="field">last_activity (integer)</div>
+                    </div>
+                </div>
+
+                <div class="table-card system">
+                    <div class="table-name">personal_access_tokens</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">tokenable_id (bigint)</div>
+                        <div class="field">tokenable_type (string)</div>
+                        <div class="field">name (string)</div>
+                        <div class="field uk">token (string, UK)</div>
+                        <div class="field">abilities (text)</div>
+                        <div class="field">last_used_at (timestamp)</div>
+                        <div class="field">expires_at (timestamp)</div>
+                        <div class="field">created_at (timestamp)</div>
+                        <div class="field">updated_at (timestamp)</div>
+                    </div>
+                </div>
+
+                <div class="table-card system">
+                    <div class="table-name">jobs</div>
+                    <div class="table-fields">
+                        <div class="field pk">id (bigint, PK)</div>
+                        <div class="field">queue (string)</div>
+                        <div class="field">payload (longtext)</div>
+                        <div class="field">attempts (tinyint)</div>
+                        <div class="field">reserved_at (integer)</div>
+                        <div class="field">available_at (integer)</div>
+                        <div class="field">created_at (integer)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relationships">
+                <h2>Database Relationships</h2>
+
+                <div class="relationship-group">
+                    <h3>User Relationships</h3>
+                    <ul class="relationship-list">
+                        <li>
+                            <strong>users</strong> →
+                            <strong>civilstatus_look_ups</strong> (belongs_to
+                            via civil_status_id)
+                        </li>
+                        <li>
+                            <strong>users</strong> →
+                            <strong>baranggay_look_ups</strong> (belongs_to via
+                            barangay_id)
+                        </li>
+                        <li>
+                            <strong>users</strong> →
+                            <strong>applications</strong> (has_many via user_id)
+                        </li>
+                        <li>
+                            <strong>users</strong> →
+                            <strong>businesses</strong> (has_many via user_id)
+                        </li>
+                        <li>
+                            <strong>users</strong> →
+                            <strong>complaints</strong> (has_many via user_id)
+                        </li>
+                        <li>
+                            <strong>users</strong> →
+                            <strong>requirements</strong> (has_many via
+                            checked_by)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relationship-group">
+                    <h3>Application Relationships</h3>
+                    <ul class="relationship-list">
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>classification_look_ups</strong> (belongs_to
+                            via classification_id)
+                        </li>
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>application_type_look_ups</strong>
+                            (belongs_to via application_type_id)
+                        </li>
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>industry_look_ups</strong> (belongs_to via
+                            industry_id)
+                        </li>
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>sub_industry_look_ups</strong> (belongs_to
+                            via sub_industry_id)
+                        </li>
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>business_line_look_ups</strong> (belongs_to
+                            via business_line_id)
+                        </li>
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>requirements</strong> (has_many via
+                            application_ref_no)
+                        </li>
+                        <li>
+                            <strong>applications</strong> →
+                            <strong>water_analyses</strong> (has_many via
+                            application_ref_no)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relationship-group">
+                    <h3>Business Relationships</h3>
+                    <ul class="relationship-list">
+                        <li>
+                            <strong>businesses</strong> →
+                            <strong>classification_look_ups</strong> (belongs_to
+                            via classification_id)
+                        </li>
+                        <li>
+                            <strong>businesses</strong> →
+                            <strong>application_type_look_ups</strong>
+                            (belongs_to via application_type_id)
+                        </li>
+                        <li>
+                            <strong>businesses</strong> →
+                            <strong>industry_look_ups</strong> (belongs_to via
+                            industry_id)
+                        </li>
+                        <li>
+                            <strong>businesses</strong> →
+                            <strong>sub_industry_look_ups</strong> (belongs_to
+                            via sub_industry_id)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relationship-group">
+                    <h3>Industry Hierarchy</h3>
+                    <ul class="relationship-list">
+                        <li>
+                            <strong>industry_look_ups</strong> →
+                            <strong>sub_industry_look_ups</strong> (has_many via
+                            industry_id)
+                        </li>
+                        <li>
+                            <strong>sub_industry_look_ups</strong> →
+                            <strong>business_line_look_ups</strong> (has_many
+                            via sub_industry_id)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relationship-group">
+                    <h3>System Relationships</h3>
+                    <ul class="relationship-list">
+                        <li>
+                            <strong>users</strong> →
+                            <strong>sessions</strong> (has_many via user_id)
+                        </li>
+                        <li>
+                            <strong>users</strong> →
+                            <strong>personal_access_tokens</strong> (polymorphic
+                            via tokenable)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

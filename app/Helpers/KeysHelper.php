@@ -60,6 +60,8 @@ class KeysHelper {
         'TotalEmployeesWithoutCertificates' => 'total_employees_without_certificates',
         'TotalEmployeesWithPPE' => 'total_employees_with_ppe',
         'BusinessLineText' => 'business_line_text',
+
+        'ComplaintRefNo' => 'complaint_ref_no',
     ];
     
     public function getKey(string $key_index): string {

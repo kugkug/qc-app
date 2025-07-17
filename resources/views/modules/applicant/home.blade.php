@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="col-md-3"></div>
-            <div class="col-md-6 card-button" data-path='laboratory_follow_up'>
+            <div class="col-md-6 card-button" data-path='/complaint'>
                 <div class="card rounded-0 shadow-lg">
                     <div class="card-body text-center rounded-0" style="height: 280px">
                         <img src="{{ asset('assets/images/system/complain_icon.png') }}" class="img-fluid" style="height: 100%">

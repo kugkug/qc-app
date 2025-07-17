@@ -71,7 +71,7 @@
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="/applicant/laboratory_follow_up" class="nav-link">
+                  <a href="/complaint" class="nav-link">
                       <i class="fas fa-file-contract"></i>
                       Complain
                   </a>

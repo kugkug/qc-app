@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\Executor\ApplicantsController;
+use App\Http\Controllers\Executor\ComplaintController;
 use App\Http\Controllers\Executor\DropdownsController;
 use App\Http\Controllers\Executor\HealthController;
 use App\Http\Controllers\Executor\SanitaryController;
 use App\Http\Controllers\Web\HealthModulesController;
 use App\Http\Controllers\Web\ReportModulesController;
 use App\Http\Controllers\Web\SanitaryModulesController;
+use App\Http\Controllers\Web\ChatbotController;
+use App\Http\Controllers\Web\ComplaintModulesController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,10 @@ Route::get("/", [HealthModulesController::class, 'login'])->name('login');
 Route::get("/register", [HealthModulesController::class, 'register'])->name('applicant_registration');
 Route::get("/about-us", [HealthModulesController::class, 'about_us'])->name('about_us');
 Route::get("/contact-us", [HealthModulesController::class, 'contact_us'])->name('contact_us');
+
+// Chatbot routes
+Route::get("/chatbot", [ChatbotController::class, 'index'])->name('chatbot');
+Route::post("/chatbot/response", [ChatbotController::class, 'getResponse'])->name('chatbot.response');
 
 Route::middleware([
     'auth', 
@@ -24,7 +31,6 @@ Route::middleware([
         Route::get("/home", [HealthModulesController::class, 'home'])->name('home')->middleware('auth');
         Route::get("/health_certificate", [HealthModulesController::class, 'health_certificate'])->name('applicant_health_certificate');
         Route::get("/sanitary_permit", [SanitaryModulesController::class, 'sanitary_permit'])->name('applicant_sanitary_permit');   
-        Route::get("/laboratory_follow_up", [HealthModulesController::class, 'laboratory_followup'])->name('laboratory_followup');
         Route::get("/analysis_follow_up", [HealthModulesController::class, 'water_analysis_followup'])->name('water_analysis_followup');
         Route::get("/about-us", [HealthModulesController::class, 'auth_about_us'])->name('applicant_about_us');
         Route::get("/contact-us", [HealthModulesController::class, 'auth_contact_us'])->name('applicant_contact_us');
@@ -55,6 +61,19 @@ Route::group(['prefix' => 'business'], function() {
     });
 });
 
+Route::group(['prefix' => 'complaint'], function() {
+    Route::get("/", [ComplaintModulesController::class, 'index'])->name('complaint');
+
+    Route::group(['prefix' => 'processing'], function() {
+        Route::get("/complaint/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_complaint'])->name('processing_complaint');
+        Route::get("/recommendation-first/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_recommendation_first'])->name('processing_recommendation_first');
+        Route::get("/recommendation-second/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_recommendation_second'])->name('processing_recommendation_second');
+        Route::get("/recommendation-third/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_recommendation_third'])->name('processing_recommendation_third');
+        Route::get("/head-approval/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_head_approval'])->name('processing_head_approval');
+        Route::get("/resolved/{complaint_ref_no}", [ComplaintModulesController::class, 'processing_resolved'])->name('processing_resolved');
+    });
+});
+
 Route::group(['prefix' => 'reports'], function() {
     Route::get('/', [ReportModulesController::class, 'viewPdf']);
 });
@@ -77,8 +96,6 @@ Route::group(['prefix' => 'executor'], function() {
         Route::post("/upload-requirements/{application_ref_no}", [HealthController::class, 'upload_requirements'])->name('exec_applicant_upload_requirements');
         Route::post('/update-payment-order/{application_ref_no}', [HealthController::class, 'update_payment_order'])->name('exec_applicant_update_payment_order');
         Route::post('/update-application/{application_ref_no}', [HealthController::class, 'update_application'])->name('exec_applicant_update_application');
-
-        Route::post('/submit-complaint', [ApplicantsController::class, 'submit_complaint'])->name('exec_applicant_submit_complaint');
     });
 
     Route::group(['prefix' => 'business'], function() {
@@ -88,6 +105,10 @@ Route::group(['prefix' => 'executor'], function() {
         Route::post('/update-payment-order/{application_ref_no}', [SanitaryController::class, 'update_payment_order'])->name('exec_busines_update_payment_order');
         Route::post('/update-application/{application_ref_no}', [SanitaryController::class, 'update_application'])->name('exec_busines_update_application');
         Route::post('/update-water-analysis/{application_ref_no}', [SanitaryController::class, 'update_water_analysis'])->name('exec_busines_update_water_analysis');
+    });
+
+    Route::group(['prefix' => 'complaint'], function() {
+        Route::post('/submit', [ComplaintController::class, 'submit_complaint'])->name('exec_submit_complaint');
     });
     
 });

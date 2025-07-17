@@ -7,6 +7,8 @@ use App\Models\Applications;
 use App\Models\Business;
 use App\Models\BusinessRequirementLookUp;
 use App\Models\BusinessTimelineLookUp;
+use App\Models\Complaint;
+use App\Models\ComplaintTimelineLookUp;
 use App\Models\History;
 use App\Models\Payment;
 use App\Models\PaymentLookUp;
@@ -40,6 +42,12 @@ class GlobalHelper {
     public function getBusinessRequirementTypes(): array {
         try {
             return BusinessRequirementLookUp::orderBy('id', 'asc')->get()->toArray();
+        } catch (Exception $e) { return []; }
+    }   
+
+    public function getComplaintTimeLines(): array {
+        try {
+            return ComplaintTimelineLookUp::orderBy('order', 'asc')->get()->toArray();
         } catch (Exception $e) { return []; }
     }
 
@@ -79,6 +87,14 @@ class GlobalHelper {
     public function updateBusinessStatusViaRefNo(string $ref_no, int $status): void {
         try {
             Business::where('application_ref_no', $ref_no)->update(['application_status' => $status]);
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+        }
+    }
+
+    public function updateComplaintStatusViaRefNo(string $ref_no, int $status): void {
+        try {
+            Complaint::where('complaint_ref_no', $ref_no)->update(['status' => $status]);
         } catch (Exception $e) {
             Log::channel('info')->info(json_encode($e->getMessage()));
         }
@@ -138,6 +154,20 @@ class GlobalHelper {
 
             if ($business) {
                 return $business->toArray()[0];
+            }
+            return [];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+
+    public function getComplaintViaRefNo(string $ref_no) {
+        try {
+            $complaint = Complaint::where('complaint_ref_no', $ref_no)->get();
+
+            if ($complaint) {
+                return $complaint->toArray()[0];
             }
             return [];
         } catch (Exception $e) {
@@ -209,6 +239,22 @@ class GlobalHelper {
         }
     }
 
+    public function getComplaintsViaUserId(int $user_id) {
+        try {
+            $complaints = Complaint::where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            if ($complaints) {
+                return $complaints->toArray();
+            }
+            return [];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+
     public function logHistory(string $application_ref_no, string $timeline): void {
         try {
             if ($timeline == 'Water Analysis') {
@@ -223,6 +269,17 @@ class GlobalHelper {
                 ]);
             }
             
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+        }
+    }
+
+    public function logComplaintHistory(string $complaint_ref_no, string $timeline): void {
+        try {
+            History::create([
+                'application_ref_no' => $complaint_ref_no,
+                'timeline_look_up_id' => $this->getComplaintTimelineIdViaName($timeline),
+            ]);
         } catch (Exception $e) {
             Log::channel('info')->info(json_encode($e->getMessage()));
         }
@@ -260,6 +317,15 @@ class GlobalHelper {
     public function getBusinessTimelineIdViaName(string $timeline): int {
         try {
             return BusinessTimelineLookUp::where('timeline', $timeline)->pluck('id')[0];
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return 0;
+        }
+    }
+
+    public function getComplaintTimelineIdViaName(string $timeline): int {
+        try {
+            return ComplaintTimelineLookUp::where('timeline', $timeline)->pluck('id')[0];
         } catch (Exception $e) {
             Log::channel('info')->info(json_encode($e->getMessage()));
             return 0;

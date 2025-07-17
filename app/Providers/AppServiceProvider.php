@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $business_timelines = globalHelper()->getBusinessTimeLines();
         $requirement_types = globalHelper()->getRequirementTypes();
         $business_requirement_types = globalHelper()->getBusinessRequirementTypes();
+        $complaint_timelines = globalHelper()->getComplaintTimeLines();
         
         view()->composer('*', function($view) use (
             $system_config,
@@ -29,7 +30,8 @@ class AppServiceProvider extends ServiceProvider
             $timelines,
             $business_timelines,
             $requirement_types,
-            $business_requirement_types
+            $business_requirement_types,
+            $complaint_timelines
         ) {
             $view->with([
                 'app_name' => $system_config['app_name'],
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
                 'global_business_timelines' => $business_timelines,
                 'global_requirement_types' => $requirement_types,
                 'global_business_requirement_types' => $business_requirement_types,
+                'global_complaint_timelines' => $complaint_timelines,
             ]);
         });
 }

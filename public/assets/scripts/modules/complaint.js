@@ -20,6 +20,6 @@ $(document).ready(function () {
 
         console.log(form_data);
 
-        ajaxSubmit("/executor/applicant/submit-complaint", form_data, $(this));
+        ajaxSubmit("/executor/complaint/submit", form_data, $(this));
     });
 });

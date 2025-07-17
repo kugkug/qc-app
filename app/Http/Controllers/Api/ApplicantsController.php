@@ -396,42 +396,5 @@ class ApplicantsController extends Controller {
         }
     }
 
-    public function submitComplaint(Request $request) {
-        try {
-            
-            $complaint_photo = $request->file('ComplaintPhoto');
-
-            if ($complaint_photo) {
-                $orig_file = str_replace("'", "", $complaint_photo->getClientOriginalName());
-                $filename = "complaint_photo_".str_replace(" ", "_", $orig_file);
-                $complaint_photo->storeAs('', $filename, 'upload_complaint');
-            }
-            
-            $user_id = Auth::id();
-
-            $validated = validatorHelper()->validate('submit_complaint', $request->merge([
-                'UserId' => $user_id,
-            ]));
-
-            if (! $validated['status']) {
-                return $validated;
-            }
-
-            $validated['validated']['complaint_photo'] = $filename;
-            
-            $validated['validated']['sentiments'] = sentimentHelper()->getSentiment($validated['validated']['complaint_description']);
-
-            $complaint = Complaint::create($validated['validated']);   
-
-
-            return [
-                'status' => true,
-                'response' => $complaint,
-            ];
-            
-        } catch (Exception $e) {
-            Log::channel('info')->info($e->getMessage(), $e->getTrace());
-            return ['status' => false];
-        }
-    }
+    
 }

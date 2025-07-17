@@ -57,7 +57,7 @@
 <script src="{{ asset('assets/adminlte3.2/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/dist/js/adminlte.js') }}"></script>
-
+@include('components.chatbot-widget')
 <script>
   $(document).ready(function () {
     if ($("[data-trigger=logout]").length) {

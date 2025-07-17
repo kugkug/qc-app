@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Applicants;
 use App\Http\Controllers\Api\ApplicantsController;
 use App\Http\Controllers\Api\BusinessController;
 use App\Http\Controllers\Api\DropdownsController;
+use App\Http\Controllers\Api\ComplaintController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,5 +52,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('update-application/{application_ref_no}', [BusinessController::class, 'updateApplication'])->name('busines_update_application');
         Route::post('update-water-analysis/{application_ref_no}', [BusinessController::class, 'updateWaterAnalysis'])->name('busines_update_water_analysis');
     });
+
+    Route::group(['prefix' => 'complaint'], function() {
+        Route::post('submit', [ComplaintController::class, 'submitComplaint'])->name('api_submit_complaint');
+    }); 
 
 });
