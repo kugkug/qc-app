@@ -1,6 +1,6 @@
 
 <h3 class="text-center font-weight-bold">{{ $xtitle }}</h3>
-
+<input type="hidden" id="txtApplicationNo" value="{{ $application['application_ref_no'] }}">
 <div class="display-horizontal">
     <div id="crumbs-container">
         @php

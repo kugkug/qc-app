@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Helpers;
 
+use App\Mail\QcHealthMailer;
 use App\Models\Applications;
 use App\Models\Business;
 use App\Models\BusinessRequirementLookUp;
@@ -10,14 +11,17 @@ use App\Models\BusinessTimelineLookUp;
 use App\Models\Complaint;
 use App\Models\ComplaintTimelineLookUp;
 use App\Models\History;
+use App\Models\Otp;
 use App\Models\Payment;
 use App\Models\PaymentLookUp;
 use App\Models\RequirementLookUp;
 use App\Models\TimelineLookUp;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class GlobalHelper {
 
@@ -408,6 +412,85 @@ class GlobalHelper {
         } catch (Exception $e) {
             Log::channel('info')->info(json_encode($e->getMessage()));
             return [];
+        }
+    }
+
+    // OTP
+    public function getProfileViaEmail($email) {
+        try {
+            $user = User::where('email', $email)->first();
+            
+            return $user->toArray();
+        } catch (\Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+
+    public function getEmailDetails($type, $data=[]) {
+        
+        switch ($type) {
+            case 'otp':
+                $user_id = $data['id'];
+                $otp_data = $this->generateOtp($user_id);
+                $data['otp'] = $otp_data['otp'] ?? '';
+                $data['verification_url'] = config('app.url') . '/verify-otp?token=' . $otp_data['token'];
+                return [
+                    'subject' => 'OTP Verification - QC Health Department',
+                    'view' => 'mailer.otp',
+                    'data' => $data,
+                ];
+            default:
+                return [
+                    'subject' => 'OTP Verification - QC Health Department',
+                    'view' => 'mailer.otp',
+                ];
+        }
+    }
+
+    public function generateOtp($user_id) {
+
+        try {
+        $otp = rand(100000, 999999);
+        $token = md5(random_bytes(32).$otp);
+        $otp_expiration = now()->addMinutes(5);
+
+        $otp_data = [
+            'user_id' => $user_id,
+            'otp' => $otp,
+            'expires_at' => $otp_expiration,
+            'type' => 'otp',
+            'token' => $token,
+        ];
+
+        $otp = Otp::create($otp_data);
+
+        return $otp;
+        } catch (\Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [];
+        }
+    }
+
+    public function sendOtp($recipient) {
+        try {
+            $profile = $this->getProfileViaEmail($recipient);
+            $emailDetails = $this->getEmailDetails('otp', $profile);
+            
+            Mail::to("$recipient")->send(new QcHealthMailer($emailDetails));
+
+            return [
+                'status' => true,
+                'message' => 'OTP sent successfully',
+                'js' => 'location = "'.$emailDetails['data']['verification_url'].'"',
+            ];
+            
+        } catch (\Exception $e) {   
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [
+                'status' => false,
+                'message' => 'Failed to send OTP',
+            ];
         }
     }
 }

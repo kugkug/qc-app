@@ -18,6 +18,9 @@ Route::get("/register", [HealthModulesController::class, 'register'])->name('app
 Route::get("/about-us", [HealthModulesController::class, 'about_us'])->name('about_us');
 Route::get("/contact-us", [HealthModulesController::class, 'contact_us'])->name('contact_us');
 
+Route::get('/verify-otp', [HealthModulesController::class, 'verifyOtp'])->name('verify_otp');
+
+
 // Chatbot routes
 Route::get("/chatbot", [ChatbotController::class, 'index'])->name('chatbot');
 Route::post("/chatbot/response", [ChatbotController::class, 'getResponse'])->name('chatbot.response');
@@ -79,6 +82,15 @@ Route::group(['prefix' => 'reports'], function() {
 });
 
 Route::group(['prefix' => 'executor'], function() {
+
+    
+    Route::post('/resend-otp', [ApplicantsController::class, 'resendOtp'])->name('exec_resend_otp');
+    Route::post('/countdown', [ApplicantsController::class, 'countdown'])->name('exec_countdown');
+    Route::post('/validate-otp', [ApplicantsController::class, 'validateOtp'])->name('exec_validate_otp');
+
+    Route::post('/cancel-application', [ApplicantsController::class, 'cancel_application'])->name('exec_cancel_application');
+    Route::post('/cancel-business-application', [SanitaryController::class, 'cancel_business_application'])->name('exec_cancel_business_application');
+
     Route::post('/sub-industries-list/{industry_id}', [DropdownsController::class, 'getSubIndustries']);
     Route::post('/business-lines-list/{sub_industry_id}', [DropdownsController::class, 'getBusinessLines']);
 

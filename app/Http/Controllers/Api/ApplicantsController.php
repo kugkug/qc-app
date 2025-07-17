@@ -22,7 +22,7 @@ class ApplicantsController extends Controller {
         DB::beginTransaction();
         
         try {
-            
+
             if($request->Password !== $request->ConfirmPassword) {
                 return [
                     'status' => false,
@@ -36,13 +36,16 @@ class ApplicantsController extends Controller {
                 return $validated;
             }
             
-            $user = User::create($validated['validated']);
-            
+            $user = User::create($validated['validated']); 
+            $send_otp = globalHelper()->sendOtp($user->email);
+
             DB::commit();
             
             return [
                 'status' => true,
                 'response' => $user,
+                'message' => 'Account registered successfully',
+                'otp_details' => $send_otp,
             ];
             
         } catch(QueryException $qe) {
@@ -54,17 +57,13 @@ class ApplicantsController extends Controller {
                     'status' => false,
                     'response' => 'Email already in use!',
                 ];
-            }
-            
-            // throw new GlobalException();
-            
+            }            
         } catch (Exception $e) {
 
             Log::channel('info')->info(json_encode($e->getMessage()));
             DB::rollBack();
             
             return ['status' => false];
-            
         }
     }
 
@@ -101,7 +100,7 @@ class ApplicantsController extends Controller {
             DB::rollBack();
             
             return ['status' => false];
-            
+       
         }
     }
 
@@ -392,9 +391,14 @@ class ApplicantsController extends Controller {
             DB::rollBack();
             
             return ['status' => false];
-            
+
         }
     }
 
+
+    public function send_otp_test(Request $request) {
+        $send_otp = globalHelper()->sendOtp([$request->email]);
+        return $send_otp;
+    }
     
 }

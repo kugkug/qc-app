@@ -10,7 +10,7 @@
                 Application Details
             </h3>
             <div class="card-tools">
-                <button class="btn btn-outline-danger btn-flat">
+                <button class="btn btn-outline-danger btn-flat" onclick="cancelBusinessApplication(event)">
                     Cancel Application
                 </button>
             </div>
@@ -19,7 +19,7 @@
             <hr />
 
             <h3 class="lead font-weight-class mb-3">
-                Individual Health Certificate Application Form
+                Sanitary Permit Application Form
             </h3>
 
             <p>Personal Info</p>

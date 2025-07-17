@@ -1,4 +1,4 @@
-
+<input type="hidden" id="txtApplicationNo" value="{{ $business['application_ref_no'] }}">
 <h3 class="text-center font-weight-bold">{{ $xtitle }}</h3>
 
 <div class="display-horizontal">

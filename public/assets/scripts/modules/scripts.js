@@ -390,3 +390,71 @@ function _confirm(type, content) {
         },
     });
 }
+
+function cancelApplication(e) {
+    e.preventDefault();
+    let application_ref_no = $("#txtApplicationNo").val();
+    $.confirm({
+        title: "System Notification",
+        content: "Are you sure you want to cancel this application?",
+        icon: "fas fa-info-circle",
+        type: "green",
+        animation: "scale",
+        closeAnimation: "scale",
+        opacity: 0.5,
+        theme: theme,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn btn-primary",
+                action: function () {
+                    ajaxRequest(
+                        "/executor/cancel-application",
+                        {
+                            application_ref_no: application_ref_no,
+                        },
+                        ""
+                    );
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn btn-danger",
+            },
+        },
+    });
+}
+
+function cancelBusinessApplication(e) {
+    e.preventDefault();
+    let application_ref_no = $("#txtApplicationNo").val();
+    $.confirm({
+        title: "System Notification",
+        content: "Are you sure you want to cancel this application?",
+        icon: "fas fa-info-circle",
+        type: "green",
+        animation: "scale",
+        closeAnimation: "scale",
+        opacity: 0.5,
+        theme: theme,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn btn-primary",
+                action: function () {
+                    ajaxRequest(
+                        "/executor/cancel-business-application",
+                        {
+                            application_ref_no: application_ref_no,
+                        },
+                        ""
+                    );
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn btn-danger",
+            },
+        },
+    });
+}

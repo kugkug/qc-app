@@ -24,6 +24,8 @@ Route::group(['prefix' => 'applicant'], function() {
     
 });
 
+Route::post('send-otp-test', [ApplicantsController::class, 'send_otp_test'])->name('send_otp_test');
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::group(['prefix' => 'applicant'], function() {
@@ -57,4 +59,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('submit', [ComplaintController::class, 'submitComplaint'])->name('api_submit_complaint');
     }); 
 
+    
 });

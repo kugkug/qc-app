@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Otp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HealthModulesController extends Controller {
     
@@ -276,4 +278,23 @@ class HealthModulesController extends Controller {
     public function auth_contact_us() {
         return view("partials.applicant.contact_us")->with(['page_name' => "Contact Us"]);
     }
+
+
+    public function verifyOtp(Request $request) {
+        try {
+            
+            $token = request()->get('token');
+            $otp = Otp::where('token', $token)->where('is_used', 0)->first();
+            
+            if (!$otp) {
+                return redirect()->route('login');
+            }
+
+            return view('verify-otp', ['token' => $token, 'otp_details' => $otp->toArray(), 'page_name' => 'Verify OTP']);
+        } catch (\Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));  
+            return redirect()->route('login');
+        }
+    }
+
 }

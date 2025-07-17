@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Executor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Business;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -168,6 +169,19 @@ class SanitaryController extends Controller {
             
         } catch (Exception $e) {
             Log::channel('info')->info(json_encode($e->getMessage()));
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
+
+    public function cancel_business_application(Request $request) {
+        try {
+            Business::where('application_ref_no', $request->application_ref_no)->delete();
+
+            $html_response = "location ='/applicant/sanitary_permit';";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+        } catch (Exception $e) {
+            Log::channel('info')->info($e->getMessage(), $e->getTrace());
             return globalHelper()->ajaxErrorResponse('');
         }
     }

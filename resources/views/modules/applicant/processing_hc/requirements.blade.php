@@ -13,7 +13,7 @@
                             Application Details
                         </h3>
                         <div class="card-tools  ml-auto">
-                            <button class="btn btn-outline-danger btn-flat">
+                            <button class="btn btn-outline-danger btn-flat" onclick="cancelApplication(event)">
                                 Cancel Application
                             </button>
                         </div>
