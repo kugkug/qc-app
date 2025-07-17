@@ -7,7 +7,7 @@ class QCChatbot {
     constructor(options = {}) {
         this.options = {
             endpoint: "/chatbot/response",
-            csrfToken: $('meta[name="csrf-token"]').attr("content"),
+            csrfToken: $('meta[name="_token"]').attr("content"),
             suggestions: [
                 "How do I apply for a health certificate?",
                 "What documents do I need?",
@@ -86,6 +86,9 @@ class QCChatbot {
         $.ajax({
             url: this.options.endpoint,
             method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": this.options.csrfToken,
+            },
             data: { message: message },
             success: (response) => {
                 this.hideTypingIndicator();

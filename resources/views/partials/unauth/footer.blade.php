@@ -27,6 +27,7 @@
     </div>
     
   </footer>
+  
   @include('partials.unauth.assets.fullscreenloader')
 
 <script src="{{ asset('assets/adminlte3.2/plugins/jquery/jquery.min.js') }}"></script>

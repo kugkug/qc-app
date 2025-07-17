@@ -339,7 +339,7 @@ $(document).ready(function() {
     // Set CSRF token for AJAX requests
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
     
@@ -369,6 +369,7 @@ $(document).ready(function() {
     // Send message function
     function sendWidgetMessage() {
         const message = widgetMessageInput.val().trim();
+        
         if (message === '') return;
         
         // Add user message
@@ -384,6 +385,7 @@ $(document).ready(function() {
             method: 'POST',
             data: { message: message },
             success: function(response) {
+                console.log(response);
                 hideWidgetTypingIndicator();
                 
                 // Add bot response
@@ -394,7 +396,8 @@ $(document).ready(function() {
                     updateWidgetSuggestions(response.suggestions);
                 }
             },
-            error: function() {
+            error: function(e) {
+                console.log(e);
                 hideWidgetTypingIndicator();
                 addWidgetMessage('Sorry, I encountered an error. Please try again.', 'bot');
             }
