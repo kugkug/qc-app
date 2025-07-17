@@ -1,4 +1,5 @@
 let theme = "light";
+
 $(document).ready(function () {
     let classes = $("body").attr("class");
     if (classes.indexOf("dark-mode") > -1) {

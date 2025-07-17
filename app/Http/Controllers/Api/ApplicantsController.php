@@ -81,10 +81,16 @@ class ApplicantsController extends Controller {
                 return [
                     'status' => false,
                     'response' => 'Invalid Username or Password',
-                ];
-                
+                ];   
             }
+            
             $user = User::where('email', $auth_data['email'])->first();
+            if($user->email_verified_at == null) {
+                return [
+                    'status' => false,
+                    'response' => 'Account not verified',
+                ];
+            }
 
             return response()->json([
                 'status' => 'ok',
