@@ -36,7 +36,7 @@
 <script src="{{ asset('assets/adminlte3.2/plugins/confirm/js/jquery-confirm.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte3.2/dist/js/adminlte.js') }}"></script>
-<script src="{{ asset('assets/js/modules/scripts.js') }}"></script>
+<script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
 
 </body>
 </html>

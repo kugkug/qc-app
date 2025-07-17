@@ -36,5 +36,4 @@
 
 @include('partials.unauth.footer')  
 
-<script src="{{ asset('assets/scripts/modules/scripts.js') }}"></script>
 <script src="{{ asset('assets/scripts/modules/verify.js') }}"></script>
