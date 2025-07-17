@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @if (count($complaints) > 0)
                             @foreach ($complaints as $complaint)
                             
                                
@@ -43,6 +43,11 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="2" class="text-center">No complaints found</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
