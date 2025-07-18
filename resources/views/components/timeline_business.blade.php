@@ -62,12 +62,12 @@
                     $link = $xpath.$timeline['link']."/".$xrefno;
                 }
 
-                if ($last_timeline_status != $application_status) {
-                    if ($application_status == $timeline['id']) {
-                        $class = "requiresupdate";
-                        $status = "Requires Update";
-                    }
-                }
+                // if ($last_timeline_status != $application_status) {
+                //     if ($application_status == $timeline['id']) {
+                //         $class = "requiresupdate";
+                //         $status = "Requires Update";
+                //     }
+                // }
 
                 if ($timeline['timeline'] == 'Upload Requirements' && count($requirement_with_update) > 0) {
 

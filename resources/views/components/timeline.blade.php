@@ -6,7 +6,7 @@
         @php
             $requirement_with_update = array_filter($application['requirements'], fn($rt) => $rt['status'] == 3);
             $payment = $application['payments'] ?? [];
-            // dd($payment);
+            
              
             if ($xpath == '/business') {
                 $global_timelines = array_filter($global_timelines, fn($tl) => $tl['timeline'] !== 'HIV Seminar & Laboratories');
@@ -67,20 +67,18 @@
                     $link = $xpath.$timeline['link']."/".$xrefno;
                 }
 
-                if ($last_timeline_status != $application_status) {
-                    if ($application_status == $timeline['id']) {
-                        $class = "requiresupdate";
-                        $status = "Requires Update";
-                    }
-                }
+                // if ($last_timeline_status != $application_status) { dd("test");
+                //     if ($application_status == $timeline['id']) {
+                //         $class = "requiresupdate";
+                //         $status = "Requires Update";
+                //     }
+                // }
 
                 if ($timeline['timeline'] == 'Upload Requirements' && count($requirement_with_update) > 0) {
 
                     $class = "requiresupdate";
                     $status = "Requires Update";
                 }
-
-                
                 
                 if (
                     $timeline['timeline'] == 'Order of Payment' && 
