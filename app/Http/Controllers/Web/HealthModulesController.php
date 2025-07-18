@@ -137,7 +137,7 @@ class HealthModulesController extends Controller {
 
     public function processing_payment_order($ref_no) {
         
-        $application = globalHelper()->getUserViaAppRefno($ref_no);
+        $application = globalHelper()->getApplicationViaRefNo($ref_no);
         
         if ($application) {
 
@@ -165,7 +165,8 @@ class HealthModulesController extends Controller {
 
     public function processing_payment_validation($ref_no) {
         
-        $application = globalHelper()->getUserViaAppRefno($ref_no);
+        $application = globalHelper()->getApplicationViaRefNo($ref_no);
+        // dd($application);
         
         if ($application) {
 

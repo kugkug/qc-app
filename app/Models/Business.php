@@ -37,4 +37,8 @@ class Business extends Model
     public function requirements(): HasMany {
         return $this->hasMany(Requirements::class, 'application_ref_no', 'application_ref_no');
     }
+
+    public function payments(): HasMany {
+        return $this->hasMany(Payment::class, 'application_ref_no', 'application_ref_no');
+    }
 }

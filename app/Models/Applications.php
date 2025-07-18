@@ -46,4 +46,8 @@ class Applications extends Model
     public function user(): HasOne {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function payments(): HasMany {
+        return $this->hasMany(Payment::class, 'application_ref_no', 'application_ref_no');
+    }
 }

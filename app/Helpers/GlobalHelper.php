@@ -134,6 +134,7 @@ class GlobalHelper {
             ->with('sub_industry')
             ->with('business_line')
             ->with('requirements')
+            ->with('payments')
             ->get();
 
             if ($application) {
@@ -154,6 +155,7 @@ class GlobalHelper {
             ->with('application_type')
             ->with('industry')
             ->with('sub_industry')
+            ->with('payments')
             ->get();
 
             if ($business) {

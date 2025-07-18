@@ -5,6 +5,9 @@
     <div id="crumbs-container">
         @php
             $requirement_with_update = array_filter($application['requirements'], fn($rt) => $rt['status'] == 3);
+            $payment = $application['payments'] ?? [];
+            // dd($payment);
+             
             if ($xpath == '/business') {
                 $global_timelines = array_filter($global_timelines, fn($tl) => $tl['timeline'] !== 'HIV Seminar & Laboratories');
             }
@@ -77,6 +80,15 @@
                     $status = "Requires Update";
                 }
 
+                
+                
+                if (
+                    $timeline['timeline'] == 'Order of Payment' && 
+                    count($payment) > 0 && 
+                    $payment[0]['status'] == config('system.payment_status')['rejected']) {
+                    $class = "requiresupdate";
+                    $status = "Requires Update";
+                }
             @endphp
             
             <div class="crumb-holder">

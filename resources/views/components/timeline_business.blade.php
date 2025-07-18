@@ -5,6 +5,7 @@
     <div id="crumbs-container">
         @php
             $requirement_with_update = array_filter($business['requirements'], fn($rt) => $rt['status'] == 3);
+            $payment = $application['payments'] ?? [];
             
             $cntr = 1;
             $timeline_length = sizeof($global_business_timelines);
@@ -70,6 +71,14 @@
 
                 if ($timeline['timeline'] == 'Upload Requirements' && count($requirement_with_update) > 0) {
 
+                    $class = "requiresupdate";
+                    $status = "Requires Update";
+                }
+
+                if (
+                    $timeline['timeline'] == 'Order of Payment' && 
+                    count($payment) > 0 && 
+                    $payment[0]['status'] == config('system.payment_status')['rejected']) {
                     $class = "requiresupdate";
                     $status = "Requires Update";
                 }
