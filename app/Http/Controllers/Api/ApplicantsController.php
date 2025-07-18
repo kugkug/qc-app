@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicantsController extends Controller {
     public function registration(Request $request) {
@@ -403,8 +404,112 @@ class ApplicantsController extends Controller {
 
 
     public function send_otp_test(Request $request) {
-        $send_otp = globalHelper()->sendOtp([$request->email]);
-        return $send_otp;
+        try {
+            $response = globalHelper()->sendOtp($request->email);
+            return $response;
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return ['status' => false];
+        }
     }
-    
+
+    public function forgotPassword(Request $request) {
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user) {
+                return [
+                    'status' => false,
+                    'response' => 'We can\'t find a user with that email address.',
+                ];
+            }
+
+            $token = \Illuminate\Support\Str::random(64);
+            
+            \Illuminate\Support\Facades\DB::table('password_reset_tokens')->updateOrInsert(
+                ['email' => $request->email],
+                [
+                    'email' => $request->email,
+                    'token' => $token,
+                    'created_at' => now(),
+                ]
+            );
+
+            $resetUrl = config('app.url') . '/reset-password/' . $token;
+            
+            $emailDetails = globalHelper()->getEmailDetails('password_reset', [
+                'firstname' => $user->firstname,
+                'reset_url' => $resetUrl,
+            ]);
+
+            Mail::to($request->email)->send(new \App\Mail\QcHealthMailer($emailDetails));
+
+            return [
+                'status' => true,
+                'response' => 'Password reset link sent to your email.',
+            ];
+
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [
+                'status' => false,
+                'response' => 'Failed to send password reset email.',
+            ];
+        }
+    }
+
+    public function resetPassword(Request $request) {
+        try {
+            $request->validate([
+                'token' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:8|confirmed',
+            ]);
+
+            $passwordReset = \Illuminate\Support\Facades\DB::table('password_reset_tokens')
+                ->where('email', $request->email)
+                ->where('token', $request->token)
+                ->first();
+
+            if (!$passwordReset) {
+                return [
+                    'status' => false,
+                    'response' => 'Invalid password reset token.',
+                ];
+            }
+
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user) {
+                return [
+                    'status' => false,
+                    'response' => 'User not found.',
+                ];
+            }
+
+            $user->update([
+                'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            ]);
+
+            \Illuminate\Support\Facades\DB::table('password_reset_tokens')
+                ->where('email', $request->email)
+                ->delete();
+
+            return [
+                'status' => true,
+                'response' => 'Password has been reset successfully.',
+            ];
+
+        } catch (Exception $e) {
+            Log::channel('info')->info(json_encode($e->getMessage()));
+            return [
+                'status' => false,
+                'response' => 'Failed to reset password.',
+            ];
+        }
+    }
 }

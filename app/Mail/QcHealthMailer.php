@@ -39,7 +39,7 @@ class QcHealthMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mailer.otp',
+            view: $this->emailDetails['view'] ?? 'mailer.otp',
             with: $this->emailDetails['data'] ?? [],
         );
     }

@@ -440,6 +440,12 @@ class GlobalHelper {
                     'view' => 'mailer.otp',
                     'data' => $data,
                 ];
+            case 'password_reset':
+                return [
+                    'subject' => 'Password Reset Request - QC Health Department',
+                    'view' => 'mailer.password_reset',
+                    'data' => $data,
+                ];
             default:
                 return [
                     'subject' => 'OTP Verification - QC Health Department',

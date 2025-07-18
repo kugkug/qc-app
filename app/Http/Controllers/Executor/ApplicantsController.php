@@ -150,4 +150,44 @@ class ApplicantsController extends Controller
             return globalHelper()->ajaxErrorResponse($e->getMessage(), '', 'System Error');
         }
     }
+
+    public function forgotPassword(Request $request) {
+        try {
+            $response = apiHelper()->execute($request, '/api/applicant/forgot-password', 'POST');
+
+            if ($response['status'] == false) {
+                return isset($response['response']) ? 
+                    globalHelper()->ajaxErrorResponse($response['response']) :
+                    globalHelper()->ajaxErrorResponse('');
+            }
+            
+            $html_response = "_systemAlert('success', 'Password reset link sent to your email', function() { location = '".route('login')."'; });";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+
+        } catch (Exception $e) {
+            Log::channel('info')->info($e->getMessage(), $e->getTrace());
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
+
+    public function resetPassword(Request $request) {
+        try {
+            $response = apiHelper()->execute($request, '/api/applicant/reset-password', 'POST');
+
+            if ($response['status'] == false) {
+                return isset($response['response']) ? 
+                    globalHelper()->ajaxErrorResponse($response['response']) :
+                    globalHelper()->ajaxErrorResponse('');
+            }
+            
+            $html_response = "_systemAlert('success', 'Password has been reset successfully', function() { location = '".route('login')."'; });";
+
+            return globalHelper()->ajaxSuccessResponse($html_response);
+
+        } catch (Exception $e) {
+            Log::channel('info')->info($e->getMessage(), $e->getTrace());
+            return globalHelper()->ajaxErrorResponse('');
+        }
+    }
 }

@@ -21,7 +21,8 @@ Route::group(['prefix' => 'components'], function() {
 Route::group(['prefix' => 'applicant'], function() {
     Route::post('login', [ApplicantsController::class, 'login'])->name('api_login');
     Route::post('registration', [ApplicantsController::class, 'registration'])->name('registration');
-    
+    Route::post('forgot-password', [ApplicantsController::class, 'forgotPassword'])->name('api_forgot_password');
+    Route::post('reset-password', [ApplicantsController::class, 'resetPassword'])->name('api_reset_password');
 });
 
 Route::post('send-otp-test', [ApplicantsController::class, 'send_otp_test'])->name('send_otp_test');

@@ -20,6 +20,10 @@ Route::get("/contact-us", [HealthModulesController::class, 'contact_us'])->name(
 
 Route::get('/verify-otp', [HealthModulesController::class, 'verifyOtp'])->name('verify_otp');
 
+// Password Reset Routes
+Route::get('/forgot-password', [HealthModulesController::class, 'forgotPassword'])->name('password.request');
+Route::get('/reset-password/{token}', [HealthModulesController::class, 'resetPassword'])->name('password.reset');
+
 
 // Chatbot routes
 Route::get("/chatbot", [ChatbotController::class, 'index'])->name('chatbot');
@@ -87,6 +91,9 @@ Route::group(['prefix' => 'executor'], function() {
     Route::post('/resend-otp', [ApplicantsController::class, 'resendOtp'])->name('exec_resend_otp');
     Route::post('/countdown', [ApplicantsController::class, 'countdown'])->name('exec_countdown');
     Route::post('/validate-otp', [ApplicantsController::class, 'validateOtp'])->name('exec_validate_otp');
+
+    Route::post('/forgot-password', [ApplicantsController::class, 'forgotPassword'])->name('exec_forgot_password');
+    Route::post('/reset-password', [ApplicantsController::class, 'resetPassword'])->name('exec_reset_password');
 
     Route::post('/cancel-application', [ApplicantsController::class, 'cancel_application'])->name('exec_cancel_application');
     Route::post('/cancel-business-application', [SanitaryController::class, 'cancel_business_application'])->name('exec_cancel_business_application');

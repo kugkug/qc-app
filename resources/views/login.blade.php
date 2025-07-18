@@ -52,6 +52,13 @@
                         <p class="text-danger d-none" data-role="p-error-message"></p>
 
                         <button type="button" class="btn btn-outline-primary btn-block rounded-0" data-trigger="login">Sign In</button>
+                        
+                        <div class="text-center mt-3">
+                            <a href="{{ route('password.request') }}" class="text-muted">
+                                Forgot your password?
+                            </a>
+                        </div>
+                        
                         <hr />
                         <a class="btn btn-outline-info btn-block btn-flat" href="register">Register</a>
         

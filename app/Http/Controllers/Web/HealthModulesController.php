@@ -297,4 +297,11 @@ class HealthModulesController extends Controller {
         }
     }
 
+    public function forgotPassword() {
+        return view("forgot-password")->with(['page_name' => "Forgot Password"]);
+    }
+
+    public function resetPassword($token) {
+        return view("reset-password")->with(['page_name' => "Reset Password", 'token' => $token]);
+    }
 }
