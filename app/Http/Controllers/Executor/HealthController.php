@@ -64,11 +64,11 @@ class HealthController extends Controller {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
-            // $status = $request->IsUpdateRequired == 1 ? 'Seminar & Laboratories' : 'Upload Requirements';
-            // globalHelper()->logHistory(
-            //     $application_ref_no, 
-            //     $status
-            // );
+            $status = $request->IsUpdateRequired == 1 ? 'Seminar & Laboratories' : 'Upload Requirements';
+            globalHelper()->logHistory(
+                $application_ref_no, 
+                $status
+            );
 
             $histories = globalHelper()->getHistory($application_ref_no);
 
@@ -80,7 +80,7 @@ class HealthController extends Controller {
 
             $last_timeline_status = $last_timeline['timeline_look_up_id'];
             
-            globalHelper()->updateApplicationStatusViaRefNo(
+            globalHelper()->updateBusinessStatusViaRefNo(
                 $application_ref_no, 
                 $last_timeline_status
             );

@@ -5,7 +5,7 @@
     <div id="crumbs-container">
         @php
             $requirement_with_update = array_filter($business['requirements'], fn($rt) => $rt['status'] == 3);
-            $payment = $application['payments'] ?? [];
+            $payment = $business['payments'] ?? [];
             
             $cntr = 1;
             $timeline_length = sizeof($global_business_timelines);

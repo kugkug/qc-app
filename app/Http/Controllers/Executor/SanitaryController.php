@@ -68,17 +68,12 @@ class SanitaryController extends Controller {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
-
-            // $status = $request->IsUpdateRequired == 1 ? 'Water Analysis' : 'Upload Requirements';
-            // globalHelper()->logHistory(
-            //     $application_ref_no, 
-            //     $status
-            // );
-
-            // globalHelper()->updateBusinessStatusViaRefNo(
-            //     $application_ref_no, 
-            //     config('system.application_status')['uploaded_requirements']
-            // );
+            $status = $request->IsUpdateRequired == 1 ? 'Seminar & Laboratories' : 'Upload Requirements';
+            
+            globalHelper()->logHistory(
+                $application_ref_no, 
+                $status
+            );
 
             $histories = globalHelper()->getHistory($application_ref_no);
 
@@ -87,10 +82,10 @@ class SanitaryController extends Controller {
             } else {
                 $last_timeline = [];
             }
-
+            
             $last_timeline_status = $last_timeline['timeline_look_up_id'];
             
-            globalHelper()->updateApplicationStatusViaRefNo(
+            globalHelper()->updateBusinessStatusViaRefNo(
                 $application_ref_no, 
                 $last_timeline_status
             );
