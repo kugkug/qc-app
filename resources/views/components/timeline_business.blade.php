@@ -4,6 +4,7 @@
 <div class="display-horizontal">
     <div id="crumbs-container">
         @php
+            $requirement_with_update = array_filter($business['requirements'], fn($rt) => $rt['status'] == 3);
             
             $cntr = 1;
             $timeline_length = sizeof($global_business_timelines);
@@ -66,12 +67,12 @@
                         $status = "Requires Update";
                     }
                 }
-                //     $class = "requiresupdate";
-                //     $status = "Requires Update";
-                //     $date = date('m/d/Y');
 
-                //     $link = $xpath.$timeline['link']."/".$xrefno;
-                // }
+                if ($timeline['timeline'] == 'Upload Requirements' && count($requirement_with_update) > 0) {
+
+                    $class = "requiresupdate";
+                    $status = "Requires Update";
+                }
 
             @endphp
             

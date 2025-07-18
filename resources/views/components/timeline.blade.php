@@ -4,6 +4,7 @@
 <div class="display-horizontal">
     <div id="crumbs-container">
         @php
+            $requirement_with_update = array_filter($application['requirements'], fn($rt) => $rt['status'] == 3);
             if ($xpath == '/business') {
                 $global_timelines = array_filter($global_timelines, fn($tl) => $tl['timeline'] !== 'HIV Seminar & Laboratories');
             }
@@ -69,12 +70,12 @@
                         $status = "Requires Update";
                     }
                 }
-                //     $class = "requiresupdate";
-                //     $status = "Requires Update";
-                //     $date = date('m/d/Y');
 
-                //     $link = $xpath.$timeline['link']."/".$xrefno;
-                // }
+                if ($timeline['timeline'] == 'Upload Requirements' && count($requirement_with_update) > 0) {
+
+                    $class = "requiresupdate";
+                    $status = "Requires Update";
+                }
 
             @endphp
             
