@@ -68,15 +68,31 @@ class SanitaryController extends Controller {
                 return globalHelper()->ajaxErrorResponse('');
             }
 
-            $status = $request->IsUpdateRequired == 1 ? 'Water Analysis' : 'Upload Requirements';
-            globalHelper()->logHistory(
-                $application_ref_no, 
-                $status
-            );
 
-            globalHelper()->updateBusinessStatusViaRefNo(
+            // $status = $request->IsUpdateRequired == 1 ? 'Water Analysis' : 'Upload Requirements';
+            // globalHelper()->logHistory(
+            //     $application_ref_no, 
+            //     $status
+            // );
+
+            // globalHelper()->updateBusinessStatusViaRefNo(
+            //     $application_ref_no, 
+            //     config('system.application_status')['uploaded_requirements']
+            // );
+
+            $histories = globalHelper()->getHistory($application_ref_no);
+
+            if ($histories) {
+                $last_timeline = $histories[ array_key_last($histories) ];
+            } else {
+                $last_timeline = [];
+            }
+
+            $last_timeline_status = $last_timeline['timeline_look_up_id'];
+            
+            globalHelper()->updateApplicationStatusViaRefNo(
                 $application_ref_no, 
-                config('system.application_status')['uploaded_requirements']
+                $last_timeline_status
             );
             
             $html_response = "location = '/business/processing/validate-requirements/".$application_ref_no."';";
