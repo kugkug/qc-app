@@ -75,7 +75,11 @@ class ChatbotController extends Controller
         if ($health) {
             return response()->json([
                 'success' => true,
-                'response' => "Health Status : ". str_replace('-', ' ', config('system.application_progress_status')[$health['status']]),
+                'response' => "Health Status : ". 
+                (
+                    $health['application_status'] != null ? 
+                    str_replace('-', ' ', config('system.application_progress_status')[$health['application_status']]) : 'New'
+                ),
                 'data' => $health
             ]);
         }
@@ -83,7 +87,11 @@ class ChatbotController extends Controller
         if ($sanitary) {
             return response()->json([
                 'success' => true,
-                'response' => "Business Status : ". str_replace('-', ' ', config('system.application_progress_status')[$sanitary['status']]),
+                'response' => "Business Status : ". 
+                    (
+                        $sanitary['application_status'] != null ? 
+                        str_replace('-', ' ', config('system.application_progress_status')[$sanitary['application_status']]) : 'New'
+                    ),
                 'data' => $sanitary
             ]);
         }

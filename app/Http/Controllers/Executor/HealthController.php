@@ -34,8 +34,6 @@ class HealthController extends Controller {
 
     public function process_application(Request $request, $application_ref_no) {
         try {
-            
-            return $request->all();
             $response = apiHelper()->execute($request, "/api/applicant/process-application/$application_ref_no", 'POST');
             
             if ($response['status'] == false) {
@@ -59,7 +57,6 @@ class HealthController extends Controller {
 
     public function upload_requirements(Request $request, $application_ref_no) {
         try {
-            
             
             $response = apiHelper()->execute($request, "/api/applicant/upload-requirements/$application_ref_no", 'POST');
 
