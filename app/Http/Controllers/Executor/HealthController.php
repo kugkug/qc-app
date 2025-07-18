@@ -80,7 +80,7 @@ class HealthController extends Controller {
 
             $last_timeline_status = $last_timeline['timeline_look_up_id'];
             
-            globalHelper()->updateBusinessStatusViaRefNo(
+            globalHelper()->updateApplicationStatusViaRefNo(
                 $application_ref_no, 
                 $last_timeline_status
             );

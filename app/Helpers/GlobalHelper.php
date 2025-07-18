@@ -403,6 +403,9 @@ class GlobalHelper {
     public function getUserViaBusinessRefno(string $ref_no) {
         try {
             $application = Business::where('application_ref_no', $ref_no)
+            ->with('application_type')
+            ->with('industry')
+            ->with('sub_industry')
             ->with('user')
             ->with('requirements')
             ->get();

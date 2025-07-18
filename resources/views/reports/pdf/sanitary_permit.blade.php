@@ -44,38 +44,54 @@
         <div class="" id="div-id-data">
             <div class="row mt-1">
                 <div class="col-md-3 text-right">Name of Establishment: </div>
-                {{-- <div class="col-md-10 text-center border-bottom">{{ ucwords(strtolower($application['user']['lastname'].", ".$application['user']['firstname'])) }}</div> --}}
+                <div class="col-md-9 text-left border-bottom">
+                    {{ 
+                        strtoupper($application['company_name']) 
+                    }}
+                </div>
             </div>
             <div class="row mt-1">
                 <div class="col-md-3 text-right">Address: </div>
-                <div class="col-md-9 text-center border-bottom">
-                    {{-- {{ ucwords(strtolower($application['user']['street'] ." ".$application['user']['barangay_id']." ".$application['user']['address'])) }} --}}
+                <div class="col-md-9 text-left border-bottom">
+                    {{ 
+                        strtoupper($application['company_address']) 
+                    }}
                 </div>
             </div>
             <div class="row mt-1">
                 <div class="col-md-3 text-right">Owner: </div>
-                <div class="col-md-9 text-center border-bottom"></div>
+                <div class="col-md-9 text-left border-bottom">
+                    {{ 
+                        strtoupper($application['company_owner']) 
+                    }}
+                </div>
             </div>
             <div class="row mt-1">
                 <div class="col-md-3 text-right">Nature of Business: </div>
-                <div class="col-md-9 text-center border-bottom"></div>
+                <div class="col-md-9 text-left border-bottom">
+                    {{ 
+                        strtoupper($application['industry']['industry']) 
+                    }}
+                </div>
             </div>
         
             <div class="row mt-1">
                 <div class="col-md-3 text-right">MP Number: </div>
-                <div class="col-md-3 text-center border-bottom"></div>
+                <div class="col-md-3 text-center border-bottom">
+                    {{ $application['application_ref_no'] }}
+                </div>
                 <div class="col-md-3 text-right">Official Receipt No.: </div>
                 <div class="col-md-3 text-center border-bottom">--</div>
             </div>
             <div class="row mt-1">
-                <div class="col-md-3 text-right">Date of Issuance: </div>
+                <div class="col-md-3 text-right">Date of Issuance: {{ date('m/d/Y') }}</div>
                 <div class="col-md-3 text-center border-bottom"></div>
                 <div class="col-md-3 text-right">Date of Payment: </div>
                 <div class="col-md-3 text-center border-bottom">--</div>
             </div>
             <div class="row mt-1">
                 <div class="col-md-3 text-right">Date of Expiration: </div>
-                <div class="col-md-3 text-center border-bottom"></div>
+                <div class="col-md-3 text-center border-bottom"> {{ date('m/d/Y', strtotime('+1 year')) }}</div>
                 <div class="col-md-3 text-right">Ammount Paid: </div>
                 <div class="col-md-3 text-center border-bottom">--</div>
             </div>

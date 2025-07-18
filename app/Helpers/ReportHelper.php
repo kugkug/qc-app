@@ -19,6 +19,7 @@ class ReportHelper {
     public function generatePaymentOrderPdf($ref_no): mixed {
         $application = globalHelper()->getUserViaAppRefno($ref_no);
         
+        
         if ($application) {
             $filename = "pdf/Payment-Order-$ref_no.pdf";
             $this->data['application'] = $application;
